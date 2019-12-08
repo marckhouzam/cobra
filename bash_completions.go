@@ -11,12 +11,16 @@ import (
 	"github.com/spf13/pflag"
 )
 
-// Annotations for Bash completion.
 const (
+	// Annotations for Bash completion.
 	BashCompFilenameExt     = "cobra_annotation_bash_completion_filename_extensions"
 	BashCompCustom          = "cobra_annotation_bash_completion_custom"
 	BashCompOneRequiredFlag = "cobra_annotation_bash_completion_one_required_flag"
 	BashCompSubdirsInDir    = "cobra_annotation_bash_completion_subdirs_in_dir"
+
+	// Parameter indicating that the completion script is
+	// requesting completion results from the program
+	compRequestParam = "__complete__"
 )
 
 func writePreamble(buf *bytes.Buffer, name string) {
@@ -136,7 +140,21 @@ __%[1]s_handle_reply()
     fi
 
     if [[ ${#COMPREPLY[@]} -eq 0 ]]; then
-		if declare -F __%[1]s_custom_func >/dev/null; then
+        # if a go completion command is provided, call it by calling the command
+        # itself with our special __completion__ parameter
+        if [ -n "${has_completion_function}" ]; then
+            has_completion_function=""
+
+            local out requestComp="${words[@]} %[2]s"
+            __%[1]s_debug "${FUNCNAME[0]}: calling ${requestComp}"
+
+            # Use eval to handle any environment variables and such
+            if out=$(eval ${requestComp} 2>/dev/null); then
+                while IFS='' read -r c; do
+                    COMPREPLY+=("$c")
+                done < <(compgen -W "${out[*]}" -- "$cur")
+            fi
+        elif declare -F __%[1]s_custom_func >/dev/null; then
 			# try command name qualified custom func
 			__%[1]s_custom_func
 		else
@@ -279,7 +297,7 @@ __%[1]s_handle_word()
     __%[1]s_handle_word
 }
 
-`, name))
+`, name, compRequestParam))
 }
 
 func writePostscript(buf *bytes.Buffer, name string) {
@@ -304,6 +322,7 @@ func writePostscript(buf *bytes.Buffer, name string) {
     local commands=("%[1]s")
     local must_have_one_flag=()
     local must_have_one_noun=()
+    local has_completion_function
     local last_command
     local nouns=()
 
@@ -468,6 +487,9 @@ func writeRequiredNouns(buf *bytes.Buffer, cmd *Command) {
 	sort.Sort(sort.StringSlice(cmd.ValidArgs))
 	for _, value := range cmd.ValidArgs {
 		buf.WriteString(fmt.Sprintf("    must_have_one_noun+=(%q)\n", value))
+	}
+	if cmd.ValidArgsFn != nil {
+		buf.WriteString("    has_completion_function=1\n")
 	}
 }
 

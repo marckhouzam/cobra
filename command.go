@@ -60,6 +60,10 @@ type Command struct {
 	// ValidArgs is list of all valid non-flag arguments that are accepted in bash completions
 	ValidArgs []string
 
+	// ValidArgsFn is a function that provides the validArgs to bash completion.
+	// It is an alternative to the ValidArgs field which sometimes needs to be computed.
+	ValidArgsFn func(cmd *Command, args []string) (validArgs []string, compBehavior int)
+
 	// Expected arguments
 	Args PositionalArgs
 
@@ -179,6 +183,10 @@ type Command struct {
 	// globNormFunc is the global normalization function
 	// that we can use on every pflag set and children commands
 	globNormFunc func(f *flag.FlagSet, name string) flag.NormalizedName
+
+	// compRequested indicates that the bash completion script has requested
+	// the list of completions.
+	compRequested bool
 
 	// usageFunc is usage func defined by user.
 	usageFunc func(*Command) error
@@ -799,6 +807,14 @@ func (c *Command) execute(a []string) (err error) {
 		argWoFlags = a
 	}
 
+	if c.compRequested && c.ValidArgsFn != nil {
+		vArgs, _ := c.ValidArgsFn(c, argWoFlags)
+		for _, arg := range vArgs {
+			fmt.Println(arg)
+		}
+		return nil
+	}
+
 	if err := c.ValidateArgs(argWoFlags); err != nil {
 		return err
 	}
@@ -891,6 +907,13 @@ func (c *Command) ExecuteC() (cmd *Command, err error) {
 		args = os.Args[1:]
 	}
 
+	// Is this call about providing bash completion choices?
+	compRequested := false
+	if len(args) > 0 && args[len(args)-1] == compRequestParam {
+		compRequested = true
+		args = args[:len(args)-1]
+	}
+
 	var flags []string
 	if c.TraverseChildren {
 		cmd, flags, err = c.Traverse(args)
@@ -909,6 +932,7 @@ func (c *Command) ExecuteC() (cmd *Command, err error) {
 		return c, err
 	}
 
+	cmd.compRequested = compRequested
 	cmd.commandCalledAs.called = true
 	if cmd.commandCalledAs.name == "" {
 		cmd.commandCalledAs.name = cmd.Name()
