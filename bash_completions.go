@@ -18,10 +18,30 @@ const (
 	BashCompOneRequiredFlag = "cobra_annotation_bash_completion_one_required_flag"
 	BashCompSubdirsInDir    = "cobra_annotation_bash_completion_subdirs_in_dir"
 
-	// Parameter indicating that the completion script is
-	// requesting completion results from the program
-	compRequestParam = "__complete__"
+	// Hidden command to request completion results from the program.
+	// Used by the shell completion script.
+	compRequestCmd = "__complete"
 )
+
+func (c *Command) initCompleteCmd() {
+	rootC := c.Root()
+	completeCommand := &Command{
+		Use:                   fmt.Sprintf("%s [command-line]", compRequestCmd),
+		DisableFlagsInUseLine: true,
+		Hidden:                true,
+		Short:                 "Request shell completion choices for the specified command-line",
+		Long: `__complete is a special command that is used by the shell completion logic
+to request completion choices for the specified command-line.`,
+		Run: func(c *Command, args []string) {
+			rootC.compRequested = true
+			// Remove the __complete command now that we have set the compRequested flag
+			os.Args = append(os.Args[:1], os.Args[2:]...)
+			// Execute the real command with the compRequested flag set
+			rootC.Execute()
+		},
+	}
+	rootC.AddCommand(completeCommand)
+}
 
 func writePreamble(buf *bytes.Buffer, name string) {
 	buf.WriteString(fmt.Sprintf("# bash completion for %-36s -*- shell-script -*-\n", name))
@@ -140,12 +160,11 @@ __%[1]s_handle_reply()
     fi
 
     if [[ ${#COMPREPLY[@]} -eq 0 ]]; then
-        # if a go completion command is provided, call it by calling the command
-        # itself with our special __completion__ parameter
+        # if a go completion command is provided, call our special completion function
         if [ -n "${has_completion_function}" ]; then
-            has_completion_function=""
+            local out requestComp
 
-            local out requestComp="${words[@]} %[2]s"
+            requestComp="${words[0]} %[2]s ${words[@]:1}"
             __%[1]s_debug "${FUNCNAME[0]}: calling ${requestComp}"
 
             # Use eval to handle any environment variables and such
@@ -297,7 +316,7 @@ __%[1]s_handle_word()
     __%[1]s_handle_word
 }
 
-`, name, compRequestParam))
+`, name, compRequestCmd))
 }
 
 func writePostscript(buf *bytes.Buffer, name string) {

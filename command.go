@@ -61,7 +61,7 @@ type Command struct {
 	ValidArgs []string
 
 	// ValidArgsFn is a function that provides the validArgs to bash completion.
-	// It is an alternative to the ValidArgs field which sometimes needs to be computed.
+	// It is an alternative to the ValidArgs field which sometimes needs to be computed dynamically.
 	ValidArgsFn func(cmd *Command, args []string) (validArgs []string, compBehavior int)
 
 	// Expected arguments
@@ -807,7 +807,11 @@ func (c *Command) execute(a []string) (err error) {
 		argWoFlags = a
 	}
 
-	if c.compRequested && c.ValidArgsFn != nil {
+	if c.Root().compRequested {
+		if c.ValidArgsFn == nil {
+			return fmt.Errorf("No 'ValidArgsFn' function specified for '%s'", c.Name())
+		}
+
 		vArgs, _ := c.ValidArgsFn(c, argWoFlags)
 		for _, arg := range vArgs {
 			fmt.Println(arg)
@@ -899,19 +903,13 @@ func (c *Command) ExecuteC() (cmd *Command, err error) {
 	// initialize help as the last point possible to allow for user
 	// overriding
 	c.InitDefaultHelpCmd()
+	c.initCompleteCmd()
 
 	args := c.args
 
 	// Workaround FAIL with "go test -v" or "cobra.test -test.v", see #155
 	if c.args == nil && filepath.Base(os.Args[0]) != "cobra.test" {
 		args = os.Args[1:]
-	}
-
-	// Is this call about providing bash completion choices?
-	compRequested := false
-	if len(args) > 0 && args[len(args)-1] == compRequestParam {
-		compRequested = true
-		args = args[:len(args)-1]
 	}
 
 	var flags []string
@@ -932,7 +930,6 @@ func (c *Command) ExecuteC() (cmd *Command, err error) {
 		return c, err
 	}
 
-	cmd.compRequested = compRequested
 	cmd.commandCalledAs.called = true
 	if cmd.commandCalledAs.name == "" {
 		cmd.commandCalledAs.name = cmd.Name()
