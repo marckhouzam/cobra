@@ -60,9 +60,9 @@ type Command struct {
 	// ValidArgs is list of all valid non-flag arguments that are accepted in bash completions
 	ValidArgs []string
 
-	// ValidArgsFn is a function that provides the validArgs to bash completion.
+	// ValidArgsFunc is a function that provides the validArgs to bash completion.
 	// It is an alternative to the ValidArgs field which sometimes needs to be computed dynamically.
-	ValidArgsFn func(cmd *Command, args []string) (validArgs []string, compBehavior int)
+	ValidArgsFunc func(cmd *Command, args []string) (validArgs []string, directive BashCompDirective)
 
 	// Expected arguments
 	Args PositionalArgs
@@ -211,6 +211,11 @@ type Command struct {
 	outWriter io.Writer
 	// errWriter is a writer defined by the user that replaces stderr
 	errWriter io.Writer
+}
+
+type validArgsCode struct {
+	error
+	directive BashCompDirective
 }
 
 // SetArgs sets arguments for the command. It is set to os.Args[1:] by default, if desired, can be overridden
@@ -808,15 +813,18 @@ func (c *Command) execute(a []string) (err error) {
 	}
 
 	if c.Root().compRequested {
-		if c.ValidArgsFn == nil {
+		if c.ValidArgsFunc == nil {
 			return fmt.Errorf("No 'ValidArgsFn' function specified for '%s'", c.Name())
 		}
 
-		vArgs, _ := c.ValidArgsFn(c, argWoFlags)
+		vArgs, directive := c.ValidArgsFunc(c, argWoFlags)
 		for _, arg := range vArgs {
 			fmt.Println(arg)
 		}
-		return nil
+		return validArgsCode{
+			error:     nil,
+			directive: directive,
+		}
 	}
 
 	if err := c.ValidateArgs(argWoFlags); err != nil {

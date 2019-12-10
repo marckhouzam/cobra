@@ -23,6 +23,28 @@ const (
 	compRequestCmd = "__complete"
 )
 
+// BashCompDirective represents different type of behaviors the shell
+// can be directed to have once completions have been provided.
+type BashCompDirective int
+
+const (
+	// Must be first
+	bashCompDirectiveMin BashCompDirective = iota + 41
+
+	// BashCompDirectiveDefault indicates to let the shell perform its default
+	// behavior after completions have been provided.
+	BashCompDirectiveDefault
+	// BashCompDirectiveNoSpace indicates that the shell should not add a space
+	// after the completion even if there is a single completion provided.
+	BashCompDirectiveNoSpace
+	// BashCompDirectiveNoFileComp indicates that the shell should not provide
+	// file completion even when no completion is provided.
+	BashCompDirectiveNoFileComp
+
+	// Must be last
+	bashCompDirectiveMax
+)
+
 func (c *Command) initCompleteCmd() {
 	rootC := c.Root()
 	completeCommand := &Command{
@@ -30,14 +52,27 @@ func (c *Command) initCompleteCmd() {
 		DisableFlagsInUseLine: true,
 		Hidden:                true,
 		Short:                 "Request shell completion choices for the specified command-line",
-		Long: `__complete is a special command that is used by the shell completion logic
-to request completion choices for the specified command-line.`,
+		Long: fmt.Sprintf("%s is a special command that is used by the shell completion logic\n%s",
+			compRequestCmd, "to request completion choices for the specified command-line."),
 		Run: func(c *Command, args []string) {
 			rootC.compRequested = true
 			// Remove the __complete command now that we have set the compRequested flag
 			os.Args = append(os.Args[:1], os.Args[2:]...)
+
 			// Execute the real command with the compRequested flag set
-			rootC.Execute()
+			rootC.SilenceErrors = true
+			rootC.SilenceUsage = true
+			err := rootC.Execute()
+			if code, ok := err.(validArgsCode); ok {
+				d := code.directive
+				if d <= bashCompDirectiveMin && d >= bashCompDirectiveMax {
+					d = BashCompDirectiveDefault
+				}
+				os.Exit(int(d))
+			} else {
+				c.Println(err.Error())
+				os.Exit(1)
+			}
 		},
 	}
 	rootC.AddCommand(completeCommand)
@@ -168,11 +203,27 @@ __%[1]s_handle_reply()
             __%[1]s_debug "${FUNCNAME[0]}: calling ${requestComp}"
 
             # Use eval to handle any environment variables and such
-            if out=$(eval ${requestComp} 2>/dev/null); then
-                while IFS='' read -r c; do
+            out=$(eval ${requestComp} 2>/dev/null)
+            directive=$?
+            case $directive in
+                42 | 43 | 44)
+                    case $directive in
+                        43)
+                            if [[ $(type -t compopt) = "builtin" ]]; then
+                                compopt -o nospace
+                            fi
+                            ;;
+                        44)
+                            if [[ $(type -t compopt) = "builtin" ]]; then
+                                compopt +o default
+                            fi
+                            ;;
+                    esac
+                    while IFS='' read -r c; do
                     COMPREPLY+=("$c")
-                done < <(compgen -W "${out[*]}" -- "$cur")
-            fi
+                    done < <(compgen -W "${out[*]}" -- "$cur")
+                    ;;
+            esac
         elif declare -F __%[1]s_custom_func >/dev/null; then
 			# try command name qualified custom func
 			__%[1]s_custom_func
@@ -507,7 +558,7 @@ func writeRequiredNouns(buf *bytes.Buffer, cmd *Command) {
 	for _, value := range cmd.ValidArgs {
 		buf.WriteString(fmt.Sprintf("    must_have_one_noun+=(%q)\n", value))
 	}
-	if cmd.ValidArgsFn != nil {
+	if cmd.ValidArgsFunc != nil {
 		buf.WriteString("    has_completion_function=1\n")
 	}
 }
