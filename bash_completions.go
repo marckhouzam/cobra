@@ -194,12 +194,21 @@ __%[1]s_handle_reply()
         done < <(compgen -W "${noun_aliases[*]}" -- "$cur")
     fi
 
-    if [[ ${#COMPREPLY[@]} -eq 0 ]]; then
+	if [[ ${#COMPREPLY[@]} -eq 0 ]]; then
+    	__%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
+
         # if a go completion command is provided, call our special completion function
         if [ -n "${has_completion_function}" ]; then
             local out requestComp
 
-            requestComp="${words[0]} %[2]s ${words[@]:1}"
+			
+			requestComp="${words[0]} %[2]s ${words[@]:1}"
+			
+			# If the last parameter is complete (there is a space following it)
+			# We add an extra empty parameter we can indicate this to the go method
+			__%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
+			[ $c -eq ${#words[@]} ] && requestComp="${requestComp} \ "
+		
             __%[1]s_debug "${FUNCNAME[0]}: calling ${requestComp}"
 
             # Use eval to handle any environment variables and such
@@ -226,6 +235,7 @@ __%[1]s_handle_reply()
             esac
         elif declare -F __%[1]s_custom_func >/dev/null; then
 			# try command name qualified custom func
+			__%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
 			__%[1]s_custom_func
 		else
 			# otherwise fall back to unqualified for compatibility
