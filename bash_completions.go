@@ -654,3 +654,26 @@ func (c *Command) GenBashCompletionFile(filename string) error {
 
 	return c.GenBashCompletion(outFile)
 }
+
+// CompDebug prints the specified string to the same file as
+// where the completion script prints its logs.
+// Such logs are only printed when the user has set the environment
+// variable BASH_COMP_DEBUG_FILE to the path of some file to be used.
+func CompDebug(msg string) {
+	if path := os.Getenv("BASH_COMP_DEBUG_FILE"); path != "" {
+		f, err := os.OpenFile(path,
+			os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		if err == nil {
+			defer f.Close()
+			f.WriteString(msg)
+		}
+	}
+}
+
+// CompDebug prints the specified string with a newline at the end
+// to the same file as where the completion script prints its logs.
+// Such logs are only printed when the user has set the environment
+// variable BASH_COMP_DEBUG_FILE to the path of some file to be used.
+func CompDebugln(msg string) {
+	CompDebug(fmt.Sprintln("%s\n", msg))
+}
