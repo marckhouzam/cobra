@@ -28,21 +28,21 @@ const (
 type BashCompDirective int
 
 const (
-	// Must be first
-	bashCompDirectiveMin BashCompDirective = iota + 41
+	// BashCompDirectiveError indicates an error occurred and completions
+	// should be ignored.
+	BashCompDirectiveError BashCompDirective = 1 << iota
 
-	// BashCompDirectiveDefault indicates to let the shell perform its default
-	// behavior after completions have been provided.
-	BashCompDirectiveDefault
 	// BashCompDirectiveNoSpace indicates that the shell should not add a space
 	// after the completion even if there is a single completion provided.
 	BashCompDirectiveNoSpace
+
 	// BashCompDirectiveNoFileComp indicates that the shell should not provide
 	// file completion even when no completion is provided.
 	BashCompDirectiveNoFileComp
 
-	// Must be last
-	bashCompDirectiveMax
+	// BashCompDirectiveDefault indicates to let the shell perform its default
+	// behavior after completions have been provided.
+	BashCompDirectiveDefault BashCompDirective = 0
 )
 
 func (c *Command) initCompleteCmd() {
@@ -64,14 +64,10 @@ func (c *Command) initCompleteCmd() {
 			rootC.SilenceUsage = true
 			err := rootC.Execute()
 			if code, ok := err.(validArgsCode); ok {
-				d := code.directive
-				if d <= bashCompDirectiveMin && d >= bashCompDirectiveMax {
-					d = BashCompDirectiveDefault
-				}
-				os.Exit(int(d))
+				os.Exit(int(code.directive))
 			} else {
 				c.Println(err.Error())
-				os.Exit(1)
+				os.Exit(int(BashCompDirectiveError))
 			}
 		},
 	}
@@ -194,45 +190,49 @@ __%[1]s_handle_reply()
         done < <(compgen -W "${noun_aliases[*]}" -- "$cur")
     fi
 
-	if [[ ${#COMPREPLY[@]} -eq 0 ]]; then
-    	__%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
+    if [[ ${#COMPREPLY[@]} -eq 0 ]]; then
+        __%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
 
         # if a go completion command is provided, call our special completion function
         if [ -n "${has_completion_function}" ]; then
             local out requestComp
 
-			
-			requestComp="${words[0]} %[2]s ${words[@]:1}"
-			
-			# If the last parameter is complete (there is a space following it)
-			# We add an extra empty parameter we can indicate this to the go method
-			__%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
-			[ $c -eq ${#words[@]} ] && requestComp="${requestComp} \ "
-		
+            requestComp="${words[0]} %[2]s ${words[@]:1}"
+
+            __%[1]s_debug "${FUNCNAME[0]}: c is $c, words[@] is ${words[@]}, #words[@] is ${#words[@]} "
+
+            # The first check works for bash, but since zsh does not keep empty array elements,
+            # we use the second check for zsh
+            if [ -z ${words[c]} ] || [ $c -eq ${#words[@]} ]; then
+                # If the last parameter is complete (there is a space following it)
+                # We add an extra empty parameter so we can indicate this to the go method.
+                requestComp="${requestComp} \"\""
+            fi
             __%[1]s_debug "${FUNCNAME[0]}: calling ${requestComp}"
 
             # Use eval to handle any environment variables and such
             out=$(eval ${requestComp} 2>/dev/null)
             directive=$?
-            case $directive in
-                42 | 43 | 44)
-                    case $directive in
-                        43)
-                            if [[ $(type -t compopt) = "builtin" ]]; then
-                                compopt -o nospace
-                            fi
-                            ;;
-                        44)
-                            if [[ $(type -t compopt) = "builtin" ]]; then
-                                compopt +o default
-                            fi
-                            ;;
-                    esac
-                    while IFS='' read -r c; do
-                    COMPREPLY+=("$c")
-                    done < <(compgen -W "${out[*]}" -- "$cur")
-                    ;;
-            esac
+
+            if [ $((${directive} & %[3]d)) -ne 0 ]; then
+                # Error getting completions
+                return
+            fi
+            if [ $((${directive} & %[4]d)) -ne 0 ]; then
+                if [[ $(type -t compopt) = "builtin" ]]; then
+                    compopt -o nospace
+                fi
+            fi
+            if [ $((${directive} & %[5]d)) -ne 0 ]; then
+                if [[ $(type -t compopt) = "builtin" ]]; then
+                    compopt +o default
+                fi
+            fi
+
+            while IFS='' read -r comp; do
+                COMPREPLY+=("$comp")
+            done < <(compgen -W "${out[*]}" -- "$cur")
+
         elif declare -F __%[1]s_custom_func >/dev/null; then
 			# try command name qualified custom func
 			__%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
@@ -377,7 +377,7 @@ __%[1]s_handle_word()
     __%[1]s_handle_word
 }
 
-`, name, compRequestCmd))
+`, name, compRequestCmd, BashCompDirectiveError, BashCompDirectiveNoSpace, BashCompDirectiveNoFileComp))
 }
 
 func writePostscript(buf *bytes.Buffer, name string) {
@@ -675,5 +675,5 @@ func CompDebug(msg string) {
 // Such logs are only printed when the user has set the environment
 // variable BASH_COMP_DEBUG_FILE to the path of some file to be used.
 func CompDebugln(msg string) {
-	CompDebug(fmt.Sprintln("%s\n", msg))
+	CompDebug(fmt.Sprintf("%s\n", msg))
 }
