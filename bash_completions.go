@@ -193,10 +193,11 @@ __%[1]s_handle_reply()
     if [[ ${#COMPREPLY[@]} -eq 0 ]]; then
         __%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
 
+        local useCustomFunc=1
         # if a go completion command is provided, call our special completion function
         if [ -n "${has_completion_function}" ]; then
             local out requestComp
-
+            useCustomFunc=0
             requestComp="${words[0]} %[2]s ${words[@]:1}"
 
             __%[1]s_debug "${FUNCNAME[0]}: c is $c, words[@] is ${words[@]}, #words[@] is ${#words[@]} "
@@ -208,41 +209,44 @@ __%[1]s_handle_reply()
                 # We add an extra empty parameter so we can indicate this to the go method.
                 requestComp="${requestComp} \"\""
             fi
-            __%[1]s_debug "${FUNCNAME[0]}: calling ${requestComp}"
 
+            __%[1]s_debug "${FUNCNAME[0]}: calling ${requestComp}"
             # Use eval to handle any environment variables and such
             out=$(eval ${requestComp} 2>/dev/null)
             directive=$?
 
             if [ $((${directive} & %[3]d)) -ne 0 ]; then
-                # Error getting completions
-                return
-            fi
-            if [ $((${directive} & %[4]d)) -ne 0 ]; then
-                if [[ $(type -t compopt) = "builtin" ]]; then
-                    compopt -o nospace
+                # Error code.  Fallback to custom_func.
+                __%[1]s_debug "${FUNCNAME[0]}: received error, falling back to custom_func"
+                useCustomFunc=1
+            else
+                if [ $((${directive} & %[4]d)) -ne 0 ]; then
+                    if [[ $(type -t compopt) = "builtin" ]]; then
+                        compopt -o nospace
+                    fi
                 fi
-            fi
-            if [ $((${directive} & %[5]d)) -ne 0 ]; then
-                if [[ $(type -t compopt) = "builtin" ]]; then
-                    compopt +o default
+                if [ $((${directive} & %[5]d)) -ne 0 ]; then
+                    if [[ $(type -t compopt) = "builtin" ]]; then
+                        compopt +o default
+                    fi
                 fi
+
+                while IFS='' read -r comp; do
+                    COMPREPLY+=("$comp")
+                done < <(compgen -W "${out[*]}" -- "$cur")
             fi
-
-            while IFS='' read -r comp; do
-                COMPREPLY+=("$comp")
-            done < <(compgen -W "${out[*]}" -- "$cur")
-
-        elif declare -F __%[1]s_custom_func >/dev/null; then
-			# try command name qualified custom func
-			__%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
-			__%[1]s_custom_func
-		else
-			# otherwise fall back to unqualified for compatibility
-			declare -F __custom_func >/dev/null && __custom_func
-		fi
+        fi
+        if [ $useCustomFunc -eq 1 ]; then
+            if declare -F __%[1]s_custom_func >/dev/null; then
+                # try command name qualified custom func
+                __%[1]s_debug "${FUNCNAME[0]}: c is $c words[@] is ${words[@]}"
+                __%[1]s_custom_func
+            else
+                # otherwise fall back to unqualified for compatibility
+                declare -F __custom_func >/dev/null && __custom_func
+            fi
+        fi
     fi
-
     # available in bash-completion >= 2, not always present on macOS
     if declare -F __ltrim_colon_completions >/dev/null; then
         __ltrim_colon_completions "$cur"
