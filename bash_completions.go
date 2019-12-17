@@ -51,6 +51,7 @@ func (c *Command) initCompleteCmd() {
 		Use:                   fmt.Sprintf("%s [command-line]", compRequestCmd),
 		DisableFlagsInUseLine: true,
 		Hidden:                true,
+		DisableFlagParsing:    true,
 		Short:                 "Request shell completion choices for the specified command-line",
 		Long: fmt.Sprintf("%s is a special command that is used by the shell completion logic\n%s",
 			compRequestCmd, "to request completion choices for the specified command-line."),
