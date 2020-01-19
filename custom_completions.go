@@ -74,7 +74,7 @@ func (d BashCompDirective) string() string {
 }
 
 // Adds a special hidden command that can be used to request custom completions.
-func (c *Command) initCompleteCmd() {
+func (c *Command) initCompleteCmd(args []string) {
 	completeCmd := &Command{
 		Use:                   fmt.Sprintf("%s [command-line]", compRequestCmd),
 		DisableFlagsInUseLine: true,
@@ -143,6 +143,15 @@ func (c *Command) initCompleteCmd() {
 		},
 	}
 	c.AddCommand(completeCmd)
+	subCmd, _, err := c.Find(args)
+	if err != nil || subCmd.Name() != compRequestCmd {
+		// Only create this special command if it is actually being called.
+		// This reduces possible side-effects of creating such a command;
+		// for example, having this command would cause problems to a
+		// cobra program that only consist of the root command, since this
+		// command would cause the root command to suddenly have subcommands.
+		c.RemoveCommand(completeCmd)
+	}
 }
 
 func isFlag(arg string) bool {
