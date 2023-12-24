@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>
+      Categories
+    </title>
+    
+
+
+
+
+
+  
+  
+
+<link
+  href="/cobra/styles/screen.min.4da12525a66a84ce812f93508873c5b8f6dea25319370ccb4a1dbff90b86a91b.css"
+  rel="stylesheet"
+  media="screen"
+  integrity="sha256-TaElJaZqhM6BL5NQiHPFuPbeolMZNwzLSh2/&#43;QuGqRs=" />
+<link
+  href="/cobra/styles/print.min.b6ef0215cf5b87a6b35afb71fb3d02b9f76a8be7c142071725edffc30df8e67f.css"
+  rel="stylesheet"
+  media="print"
+  integrity="sha256-tu8CFc9bh6azWvtx&#43;z0Cufdqi&#43;fBQgcXJe3/ww345n8=" />
+
+    
+
+
+
+
+  
+
+<script
+  src="/cobra/js/index.e1157dc92369e6e49d28d62e37d2ac5f2ad23781b126368ca36b9c9c106cc968.js"
+  integrity="sha256-4RV9ySNp5uSdKNYuN9KsXyrSN4GxJjaMo2ucnBBsyWg="
+  defer></script>
+
+    
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class="index" x-data="{ navOpen: false }" x-cloak>
+    <a
+      href="#"
+      id="nav-button"
+      @click="navOpen = !navOpen"
+      :class="{'open': navOpen }">
+      <span>
+        NAV
+        <img src="/cobra/images/navbar.png" />
+      </span>
+    </a>
+    <div class="toc-wrapper" :class="{'open': navOpen }">
+      
+      <img src="/cobra/images/logo.png" class="logo" />
+
+      
+        <div class="search" x-data="searchController">
+          <input
+            x-model.debounce.100ms="query"
+            type="search"
+            class="search"
+            id="input-search"
+            placeholder="Search" />
+          <ul
+            class="search-results visible"
+            x-show="results.length > 0"
+            x-transition.duration.700ms>
+            <template x-for="item in results">
+              <li>
+                <a x-text="item.title" :href="`#${item.id}`"></a>
+              </li>
+            </template>
+          </ul>
+        </div>
+      
+      
+  
+  
+    
+  
+  <ul
+    id="toc"
+    class="toc-list-h1"
+    x-data="tocController"
+    x-init="load([{&#34;id&#34;:&#34;active-help&#34;,&#34;level&#34;:1,&#34;sub&#34;:[{&#34;id&#34;:&#34;supported-shells&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Supported shells&#34;},{&#34;id&#34;:&#34;adding-active-help-messages&#34;,&#34;level&#34;:2,&#34;sub&#34;:[{&#34;id&#34;:&#34;active-help-for-nouns&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Active Help for nouns&#34;},{&#34;id&#34;:&#34;active-help-for-flags&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Active Help for flags&#34;}],&#34;title&#34;:&#34;Adding Active Help messages&#34;},{&#34;id&#34;:&#34;user-control-of-active-help&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;User control of Active Help&#34;},{&#34;id&#34;:&#34;active-help-with-cobras-default-completion-command&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Active Help with Cobra\u0026rsquo;s default completion command&#34;},{&#34;id&#34;:&#34;debugging-active-help&#34;,&#34;level&#34;:2,&#34;sub&#34;:[],&#34;title&#34;:&#34;Debugging Active Help&#34;}],&#34;title&#34;:&#34;Active Help&#34;},{&#34;id&#34;:&#34;generating-bash-completions-for-your-cobracommand&#34;,&#34;level&#34;:1,&#34;sub&#34;:[{&#34;id&#34;:&#34;bash-legacy-dynamic-completions&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Bash legacy dynamic completions&#34;},{&#34;id&#34;:&#34;generating-fish-completions-for-your-cobracommand&#34;,&#34;level&#34;:2,&#34;sub&#34;:[],&#34;title&#34;:&#34;Generating Fish Completions For Your cobra.Command&#34;}],&#34;title&#34;:&#34;Generating Bash Completions For Your cobra.Command&#34;},{&#34;id&#34;:&#34;generating-powershell-completions-for-your-own-cobracommand&#34;,&#34;level&#34;:1,&#34;sub&#34;:[{&#34;id&#34;:&#34;generating-zsh-completion-for-your-cobracommand&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generating Zsh Completion For Your cobra.Command&#34;},{&#34;id&#34;:&#34;zsh-completions-standardization&#34;,&#34;level&#34;:2,&#34;sub&#34;:[{&#34;id&#34;:&#34;deprecation-summary&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Deprecation summary&#34;},{&#34;id&#34;:&#34;behavioral-changes&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Behavioral changes&#34;}],&#34;title&#34;:&#34;Zsh completions standardization&#34;}],&#34;title&#34;:&#34;Generating PowerShell Completions For Your Own cobra.Command&#34;},{&#34;id&#34;:&#34;generating-man-pages-for-your-own-cobracommand&#34;,&#34;level&#34;:1,&#34;sub&#34;:[],&#34;title&#34;:&#34;Generating Man Pages For Your Own cobra.Command&#34;},{&#34;id&#34;:&#34;generating-markdown-docs-for-your-own-cobracommand&#34;,&#34;level&#34;:1,&#34;sub&#34;:[{&#34;id&#34;:&#34;generate-markdown-docs-for-the-entire-command-tree&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generate markdown docs for the entire command tree&#34;},{&#34;id&#34;:&#34;generate-markdown-docs-for-a-single-command&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generate markdown docs for a single command&#34;},{&#34;id&#34;:&#34;customize-the-output&#34;,&#34;level&#34;:2,&#34;sub&#34;:[],&#34;title&#34;:&#34;Customize the output&#34;}],&#34;title&#34;:&#34;Generating Markdown Docs For Your Own cobra.Command&#34;},{&#34;id&#34;:&#34;generating-restructured-text-docs-for-your-own-cobracommand&#34;,&#34;level&#34;:1,&#34;sub&#34;:[{&#34;id&#34;:&#34;generate-rest-docs-for-the-entire-command-tree&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generate ReST docs for the entire command tree&#34;},{&#34;id&#34;:&#34;generate-rest-docs-for-a-single-command&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generate ReST docs for a single command&#34;},{&#34;id&#34;:&#34;customize-the-output-1&#34;,&#34;level&#34;:2,&#34;sub&#34;:[],&#34;title&#34;:&#34;Customize the output&#34;}],&#34;title&#34;:&#34;Generating ReStructured Text Docs For Your Own cobra.Command&#34;},{&#34;id&#34;:&#34;generating-yaml-docs-for-your-own-cobracommand&#34;,&#34;level&#34;:1,&#34;sub&#34;:[{&#34;id&#34;:&#34;generate-yaml-docs-for-the-entire-command-tree&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generate yaml docs for the entire command tree&#34;},{&#34;id&#34;:&#34;generate-yaml-docs-for-a-single-command&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generate yaml docs for a single command&#34;},{&#34;id&#34;:&#34;customize-the-output-2&#34;,&#34;level&#34;:2,&#34;sub&#34;:[],&#34;title&#34;:&#34;Customize the output&#34;}],&#34;title&#34;:&#34;Generating Yaml Docs For Your Own cobra.Command&#34;},{&#34;id&#34;:&#34;projects-using-cobra&#34;,&#34;level&#34;:1,&#34;sub&#34;:[],&#34;title&#34;:&#34;Projects using Cobra&#34;},{&#34;id&#34;:&#34;user-guide&#34;,&#34;level&#34;:1,&#34;sub&#34;:[{&#34;id&#34;:&#34;using-the-cobra-generator&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Using the Cobra Generator&#34;},{&#34;id&#34;:&#34;using-the-cobra-library&#34;,&#34;level&#34;:2,&#34;sub&#34;:[{&#34;id&#34;:&#34;create-rootcmd&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Create rootCmd&#34;},{&#34;id&#34;:&#34;create-your-maingo&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Create your main.go&#34;},{&#34;id&#34;:&#34;create-additional-commands&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Create additional commands&#34;},{&#34;id&#34;:&#34;organizing-subcommands&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Organizing subcommands&#34;},{&#34;id&#34;:&#34;returning-and-handling-errors&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Returning and handling errors&#34;}],&#34;title&#34;:&#34;Using the Cobra Library&#34;},{&#34;id&#34;:&#34;working-with-flags&#34;,&#34;level&#34;:2,&#34;sub&#34;:[{&#34;id&#34;:&#34;assign-flags-to-a-command&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Assign flags to a command&#34;},{&#34;id&#34;:&#34;persistent-flags&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Persistent Flags&#34;},{&#34;id&#34;:&#34;local-flags&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Local Flags&#34;},{&#34;id&#34;:&#34;local-flag-on-parent-commands&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Local Flag on Parent Commands&#34;},{&#34;id&#34;:&#34;bind-flags-with-config&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Bind Flags with Config&#34;},{&#34;id&#34;:&#34;required-flags&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Required flags&#34;},{&#34;id&#34;:&#34;flag-groups&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Flag Groups&#34;}],&#34;title&#34;:&#34;Working with Flags&#34;},{&#34;id&#34;:&#34;positional-and-custom-arguments&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Positional and Custom Arguments&#34;},{&#34;id&#34;:&#34;example&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Example&#34;},{&#34;id&#34;:&#34;help-command&#34;,&#34;level&#34;:2,&#34;sub&#34;:[{&#34;id&#34;:&#34;example-1&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Example&#34;},{&#34;id&#34;:&#34;grouping-commands-in-help&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Grouping commands in help&#34;},{&#34;id&#34;:&#34;defining-your-own-help&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Defining your own help&#34;}],&#34;title&#34;:&#34;Help Command&#34;},{&#34;id&#34;:&#34;usage-message&#34;,&#34;level&#34;:2,&#34;sub&#34;:[{&#34;id&#34;:&#34;example-2&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Example&#34;},{&#34;id&#34;:&#34;defining-your-own-usage&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Defining your own usage&#34;}],&#34;title&#34;:&#34;Usage Message&#34;},{&#34;id&#34;:&#34;version-flag&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Version Flag&#34;},{&#34;id&#34;:&#34;error-message-prefix&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Error Message Prefix&#34;},{&#34;id&#34;:&#34;prerun-and-postrun-hooks&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;PreRun and PostRun Hooks&#34;},{&#34;id&#34;:&#34;suggestions-when-unknown-command-happens&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Suggestions when \u0026ldquo;unknown command\u0026rdquo; happens&#34;},{&#34;id&#34;:&#34;generating-documentation-for-your-command&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generating documentation for your command&#34;},{&#34;id&#34;:&#34;generating-shell-completions&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Generating shell completions&#34;},{&#34;id&#34;:&#34;providing-active-help&#34;,&#34;level&#34;:2,&#34;title&#34;:&#34;Providing Active Help&#34;},{&#34;id&#34;:&#34;creating-a-plugin&#34;,&#34;level&#34;:2,&#34;sub&#34;:[{&#34;id&#34;:&#34;example-kubectl-plugin&#34;,&#34;level&#34;:3,&#34;title&#34;:&#34;Example kubectl plugin&#34;}],&#34;title&#34;:&#34;Creating a plugin&#34;}],&#34;title&#34;:&#34;User Guide&#34;}])"
+    @scroll.window="onScroll()">
+    
+    <template x-for="row in rows">
+      <li>
+        <a
+          x-text="row.title"
+          @click="click(row)"
+          :href="`#${row.id}`"
+          class="toc-link"
+          x-bind="rowClass(row)"></a>
+        
+          <ul x-show="row.open" x-bind="transitions()" class="da-toc-list-h2">
+            <template x-for="row in row.sub">
+              <li>
+                <a
+                  x-text="row.title"
+                  @click="click(row)"
+                  :href="`#${row.id}`"
+                  class="toc-link"
+                  x-bind="rowClass(row)"></a>
+                
+              </li>
+            </template>
+          </ul>
+        
+      </li>
+    </template>
+  </ul>
+
+      
+      
+        <ul class="toc-footer">
+          
+            <li>
+              <a href="https://github.com/spf13/cobra"><img src="https://img.shields.io/badge/-spf13/cobra-323131.svg?logo=github&amp;style=flat-square&amp;longCache=true" alt="github.com/spf13/cobra"></a>
+            </li>
+          
+            <li>
+              Built with <a href="https://gohugo.io/">Hugo</a> theme <a href="https://github.com/bep/docuapi">DocuAPI</a> by <a href="https://github.com/bep">bep</a>
+            </li>
+          
+        </ul>
+      
+      
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  
+    
+
+
+
+
+
+<h1 id="active-help">Active Help</h1>
+<p>Active Help is a framework provided by Cobra which allows a program to define messages (hints, warnings, etc) that will be printed during program usage.  It aims to make it easier for your users to learn how to use your program.  If configured by the program, Active Help is printed when the user triggers shell completion.</p>
+<p>For example,</p>
+<pre tabindex="0"><code>bash-5.1$ helm repo add [tab]
+You must choose a name for the repo you are adding.
+
+bash-5.1$ bin/helm package [tab]
+Please specify the path to the chart to package
+
+bash-5.1$ bin/helm package [tab][tab]
+bin/    internal/    scripts/    pkg/     testdata/
+</code></pre><p><strong>Hint</strong>: A good place to use Active Help messages is when the normal completion system does not provide any suggestions. In such cases, Active Help nicely supplements the normal shell completions to guide the user in knowing what is expected by the program.</p>
+
+
+
+
+  
+
+
+
+<h2 id="supported-shells">Supported shells</h2>
+<p>Active Help is currently only supported for the following shells:</p>
+<ul>
+<li>Bash (using <a href="shell_completions.md#bash-completion-v2">bash completion V2</a> only). Note that bash 4.4 or higher is required for the prompt to appear when an Active Help message is printed.</li>
+<li>Zsh</li>
+</ul>
+
+
+
+
+  
+
+
+
+<h2 id="adding-active-help-messages">Adding Active Help messages</h2>
+<p>As Active Help uses the shell completion system, the implementation of Active Help messages is done by enhancing custom dynamic completions.  If you are not familiar with dynamic completions, please refer to <a href="shell_completions.md">Shell Completions</a>.</p>
+<p>Adding Active Help is done through the use of the <code>cobra.AppendActiveHelp(...)</code> function, where the program repeatedly adds Active Help messages to the list of completions.  Keep reading for details.</p>
+
+
+
+
+  
+
+
+
+<h3 id="active-help-for-nouns">Active Help for nouns</h3>
+<p>Adding Active Help when completing a noun is done within the <code>ValidArgsFunction(...)</code> of a command.  Please notice the use of <code>cobra.AppendActiveHelp(...)</code> in the following example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">cmd</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;add [NAME] [URL]&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;add a chart repository&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Args</span>:  <span style="color:#a6e22e">require</span>.<span style="color:#a6e22e">ExactArgs</span>(<span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">RunE</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">addRepo</span>(<span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>	},
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ValidArgsFunction</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">toComplete</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">ShellCompDirective</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">comps</span> []<span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">comps</span> = <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">AppendActiveHelp</span>(<span style="color:#a6e22e">comps</span>, <span style="color:#e6db74">&#34;You must choose a name for the repo you are adding&#34;</span>)
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">comps</span> = <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">AppendActiveHelp</span>(<span style="color:#a6e22e">comps</span>, <span style="color:#e6db74">&#34;You must specify the URL for the repo you are adding&#34;</span>)
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">comps</span> = <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">AppendActiveHelp</span>(<span style="color:#a6e22e">comps</span>, <span style="color:#e6db74">&#34;This command does not take any more arguments&#34;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">comps</span>, <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">ShellCompDirectiveNoFileComp</span>
+</span></span><span style="display:flex;"><span>	},
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The example above defines the completions (none, in this specific example) as well as the Active Help messages for the <code>helm repo add</code> command.  It yields the following behavior:</p>
+<pre tabindex="0"><code>bash-5.1$ helm repo add [tab]
+You must choose a name for the repo you are adding
+
+bash-5.1$ helm repo add grafana [tab]
+You must specify the URL for the repo you are adding
+
+bash-5.1$ helm repo add grafana https://grafana.github.io/helm-charts [tab]
+This command does not take any more arguments
+</code></pre><p><strong>Hint</strong>: As can be seen in the above example, a good place to use Active Help messages is when the normal completion system does not provide any suggestions. In such cases, Active Help nicely supplements the normal shell completions.</p>
+
+
+
+
+  
+
+
+
+<h3 id="active-help-for-flags">Active Help for flags</h3>
+<p>Providing Active Help for flags is done in the same fashion as for nouns, but using the completion function registered for the flag.  For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">RegisterFlagCompletionFunc</span>(<span style="color:#e6db74">&#34;version&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">toComplete</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">ShellCompDirective</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">AppendActiveHelp</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#e6db74">&#34;You must first specify the chart to install before the --version flag can be completed&#34;</span>), <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">ShellCompDirectiveNoFileComp</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">compVersionFlag</span>(<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">toComplete</span>)
+</span></span><span style="display:flex;"><span>	})
+</span></span></code></pre></div><p>The example above prints an Active Help message when not enough information was given by the user to complete the <code>--version</code> flag.</p>
+<pre tabindex="0"><code>bash-5.1$ bin/helm install myrelease --version 2.0.[tab]
+You must first specify the chart to install before the --version flag can be completed
+
+bash-5.1$ bin/helm install myrelease bitnami/solr --version 2.0.[tab][tab]
+2.0.1  2.0.2  2.0.3
+</code></pre>
+
+
+
+  
+
+
+
+<h2 id="user-control-of-active-help">User control of Active Help</h2>
+<p>You may want to allow your users to disable Active Help or choose between different levels of Active Help.  It is entirely up to the program to define the type of configurability of Active Help that it wants to offer, if any.
+Allowing to configure Active Help is entirely optional; you can use Active Help in your program without doing anything about Active Help configuration.</p>
+<p>The way to configure Active Help is to use the program&rsquo;s Active Help environment
+variable.  That variable is named <code>&lt;PROGRAM&gt;_ACTIVE_HELP</code> where <code>&lt;PROGRAM&gt;</code> is the name of your
+program in uppercase with any non-ASCII-alphanumeric characters replaced by an <code>_</code>.  The variable should be set by the user to whatever
+Active Help configuration values are supported by the program.</p>
+<p>For example, say <code>helm</code> has chosen to support three levels for Active Help: <code>on</code>, <code>off</code>, <code>local</code>.  Then a user
+would set the desired behavior to <code>local</code> by doing <code>export HELM_ACTIVE_HELP=local</code> in their shell.</p>
+<p>For simplicity, when in <code>cmd.ValidArgsFunction(...)</code> or a flag&rsquo;s completion function, the program should read the
+Active Help configuration using the <code>cobra.GetActiveHelpConfig(cmd)</code> function and select what Active Help messages
+should or should not be added (instead of reading the environment variable directly).</p>
+<p>For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">ValidArgsFunction</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">toComplete</span> <span style="color:#66d9ef">string</span>) ([]<span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">ShellCompDirective</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">activeHelpLevel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">GetActiveHelpConfig</span>(<span style="color:#a6e22e">cmd</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">comps</span> []<span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">activeHelpLevel</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;off&#34;</span>  {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">comps</span> = <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">AppendActiveHelp</span>(<span style="color:#a6e22e">comps</span>, <span style="color:#e6db74">&#34;You must choose a name for the repo you are adding&#34;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">args</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">activeHelpLevel</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;off&#34;</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">comps</span> = <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">AppendActiveHelp</span>(<span style="color:#a6e22e">comps</span>, <span style="color:#e6db74">&#34;You must specify the URL for the repo you are adding&#34;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">activeHelpLevel</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;local&#34;</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">comps</span> = <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">AppendActiveHelp</span>(<span style="color:#a6e22e">comps</span>, <span style="color:#e6db74">&#34;This command does not take any more arguments&#34;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">comps</span>, <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">ShellCompDirectiveNoFileComp</span>
+</span></span><span style="display:flex;"><span>},
+</span></span></code></pre></div><p><strong>Note 1</strong>: If the <code>&lt;PROGRAM&gt;_ACTIVE_HELP</code> environment variable is set to the string &ldquo;0&rdquo;, Cobra will automatically disable all Active Help output (even if some output was specified by the program using the <code>cobra.AppendActiveHelp(...)</code> function).  Using &ldquo;0&rdquo; can simplify your code in situations where you want to blindly disable Active Help without having to call <code>cobra.GetActiveHelpConfig(cmd)</code> explicitly.</p>
+<p><strong>Note 2</strong>: If a user wants to disable Active Help for every single program based on Cobra, she can set the environment variable <code>COBRA_ACTIVE_HELP</code> to &ldquo;0&rdquo;.  In this case <code>cobra.GetActiveHelpConfig(cmd)</code> will return &ldquo;0&rdquo; no matter what the variable <code>&lt;PROGRAM&gt;_ACTIVE_HELP</code> is set to.</p>
+<p><strong>Note 3</strong>: If the user does not set <code>&lt;PROGRAM&gt;_ACTIVE_HELP</code> or <code>COBRA_ACTIVE_HELP</code> (which will be a common case), the default value for the Active Help configuration returned by <code>cobra.GetActiveHelpConfig(cmd)</code> will be the empty string.</p>
+
+
+
+
+  
+
+
+
+<h2 id="active-help-with-cobras-default-completion-command">Active Help with Cobra&rsquo;s default completion command</h2>
+<p>Cobra provides a default <code>completion</code> command for programs that wish to use it.
+When using the default <code>completion</code> command, Active Help is configurable in the same
+fashion as described above using environment variables.  You may wish to document this in more
+details for your users.</p>
+
+
+
+
+  
+
+
+
+<h2 id="debugging-active-help">Debugging Active Help</h2>
+<p>Debugging your Active Help code is done in the same way as debugging your dynamic completion code, which is with Cobra&rsquo;s hidden <code>__complete</code> command.  Please refer to <a href="shell_completions.md#debugging">debugging shell completion</a> for details.</p>
+<p>When debugging with the <code>__complete</code> command, if you want to specify different Active Help configurations, you should use the active help environment variable.  That variable is named <code>&lt;PROGRAM&gt;_ACTIVE_HELP</code> where any non-ASCII-alphanumeric characters are replaced by an <code>_</code>.  For example, we can test deactivating some Active Help as shown below:</p>
+<pre tabindex="0"><code>$ HELM_ACTIVE_HELP=1 bin/helm __complete install wordpress bitnami/h&lt;ENTER&gt;
+bitnami/haproxy
+bitnami/harbor
+_activeHelp_ WARNING: cannot re-use a name that is still in use
+:0
+Completion ended with directive: ShellCompDirectiveDefault
+
+$ HELM_ACTIVE_HELP=0 bin/helm __complete install wordpress bitnami/h&lt;ENTER&gt;
+bitnami/haproxy
+bitnami/harbor
+:0
+Completion ended with directive: ShellCompDirectiveDefault
+</code></pre>
+  
+    
+
+
+
+  
+
+
+
+<h1 id="generating-bash-completions-for-your-cobracommand">Generating Bash Completions For Your cobra.Command</h1>
+<p>Please refer to <a href="_index.md">Shell Completions</a> for details.</p>
+
+
+
+
+  
+
+
+
+<h2 id="bash-legacy-dynamic-completions">Bash legacy dynamic completions</h2>
+<p>For backward compatibility, Cobra still supports its legacy dynamic completion solution (described below).  Unlike the <code>ValidArgsFunction</code> solution, the legacy solution will only work for Bash shell-completion and not for other shells. This legacy solution can be used along-side <code>ValidArgsFunction</code> and <code>RegisterFlagCompletionFunc()</code>, as long as both solutions are not used for the same command.  This provides a path to gradually migrate from the legacy solution to the new solution.</p>
+<p><strong>Note</strong>: Cobra&rsquo;s default <code>completion</code> command uses bash completion V2.  If you are currently using Cobra&rsquo;s legacy dynamic completion solution, you should not use the default <code>completion</code> command but continue using your own.</p>
+<p>The legacy solution allows you to inject bash functions into the bash completion script.  Those bash functions are responsible for providing the completion choices for your own completions.</p>
+<p>Some code that works in kubernetes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>const <span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>        bash_completion_func <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span>__kubectl_parse_get<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    local kubectl_output out
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> kubectl_output<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl get --no-headers <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> 2&gt;/dev/null<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        out<span style="color:#f92672">=(</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>kubectl_output<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> | awk <span style="color:#e6db74">&#39;{print $1}&#39;</span><span style="color:#66d9ef">)</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        COMPREPLY<span style="color:#f92672">=(</span> <span style="color:#66d9ef">$(</span> compgen -W <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>out[*]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> -- <span style="color:#e6db74">&#34;</span>$cur<span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">)</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>__kubectl_get_resource<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">${#</span>nouns[@]<span style="color:#e6db74">}</span> -eq <span style="color:#ae81ff">0</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>    __kubectl_parse_get <span style="color:#e6db74">${</span>nouns[<span style="color:#e6db74">${#</span>nouns[@]<span style="color:#e6db74">}</span> -1]<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $? -eq <span style="color:#ae81ff">0</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>__kubectl_custom_func<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">${</span>last_command<span style="color:#e6db74">}</span> in
+</span></span><span style="display:flex;"><span>        kubectl_get | kubectl_describe | kubectl_delete | kubectl_stop<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            __kubectl_get_resource
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>            ;;
+</span></span><span style="display:flex;"><span>        *<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            ;;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">esac</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>And then I set that in my command definition:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">cmds</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;kubectl&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;kubectl controls the Kubernetes cluster manager&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Long</span>: <span style="color:#e6db74">`kubectl controls the Kubernetes cluster manager.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Find more information at https://github.com/GoogleCloudPlatform/kubernetes.`</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Run</span>: <span style="color:#a6e22e">runHelp</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">BashCompletionFunction</span>: <span style="color:#a6e22e">bash_completion_func</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>BashCompletionFunction</code> option is really only valid/useful on the root command. Doing the above will cause <code>__kubectl_custom_func()</code> (<code>__&lt;command-use&gt;_custom_func()</code>) to be called when the built in processor was unable to find a solution. In the case of kubernetes a valid command might look something like <code>kubectl get pod [mypod]</code>. If you type <code>kubectl get pod [tab][tab]</code> the <code>__kubectl_customc_func()</code> will run because the cobra.Command only understood &ldquo;kubectl&rdquo; and &ldquo;get.&rdquo; <code>__kubectl_custom_func()</code> will see that the cobra.Command is &ldquo;kubectl_get&rdquo; and will thus call another helper <code>__kubectl_get_resource()</code>.  <code>__kubectl_get_resource</code> will look at the &rsquo;nouns&rsquo; collected. In our example the only noun will be <code>pod</code>.  So it will call <code>__kubectl_parse_get pod</code>.  <code>__kubectl_parse_get</code> will actually call out to kubernetes and get any pods.  It will then set <code>COMPREPLY</code> to valid pods!</p>
+<p>Similarly, for flags:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">annotation</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>][]<span style="color:#66d9ef">string</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">annotation</span>[<span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">BashCompCustom</span>] = []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;__kubectl_get_namespaces&#34;</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pflag</span>.<span style="color:#a6e22e">Flag</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Name</span>:        <span style="color:#e6db74">&#34;namespace&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Usage</span>:       <span style="color:#a6e22e">usage</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Annotations</span>: <span style="color:#a6e22e">annotation</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">AddFlag</span>(<span style="color:#a6e22e">flag</span>)
+</span></span></code></pre></div><p>In addition add the <code>__kubectl_get_namespaces</code> implementation in the <code>BashCompletionFunction</code>
+value, e.g.:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>__kubectl_get_namespaces<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    local template
+</span></span><span style="display:flex;"><span>    template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ range .items  }}{{ .metadata.name }} {{ end }}&#34;</span>
+</span></span><span style="display:flex;"><span>    local kubectl_out
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> kubectl_out<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl get -o template --template<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>template<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> namespace 2&gt;/dev/null<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        COMPREPLY<span style="color:#f92672">=(</span> <span style="color:#66d9ef">$(</span> compgen -W <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>kubectl_out<span style="color:#e6db74">}</span><span style="color:#e6db74">[*]&#34;</span> -- <span style="color:#e6db74">&#34;</span>$cur<span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">)</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div>
+  
+    
+
+
+
+  
+
+
+
+<h2 id="generating-fish-completions-for-your-cobracommand">Generating Fish Completions For Your cobra.Command</h2>
+<p>Please refer to <a href="_index.md">Shell Completions</a> for details.</p>
+
+  
+    
+
+
+
+  
+
+
+
+<h1 id="generating-powershell-completions-for-your-own-cobracommand">Generating PowerShell Completions For Your Own cobra.Command</h1>
+<p>Please refer to <a href="_index.md#powershell-completions">Shell Completions</a> for details.</p>
+
+  
+    
+
+
+
+  
+
+
+
+<h2 id="generating-zsh-completion-for-your-cobracommand">Generating Zsh Completion For Your cobra.Command</h2>
+<p>Please refer to <a href="_index.md">Shell Completions</a> for details.</p>
+
+
+
+
+  
+
+
+
+<h2 id="zsh-completions-standardization">Zsh completions standardization</h2>
+<p>Cobra 1.1 standardized its zsh completion support to align it with its other shell completions.  Although the API was kept backwards-compatible, some small changes in behavior were introduced.</p>
+
+
+
+
+  
+
+
+
+<h3 id="deprecation-summary">Deprecation summary</h3>
+<p>See further below for more details on these deprecations.</p>
+<ul>
+<li><code>cmd.MarkZshCompPositionalArgumentFile(pos, []string{})</code> is no longer needed.  It is therefore <strong>deprecated</strong> and silently ignored.</li>
+<li><code>cmd.MarkZshCompPositionalArgumentFile(pos, glob[])</code> is <strong>deprecated</strong> and silently ignored.
+<ul>
+<li>Instead use <code>ValidArgsFunction</code> with <code>ShellCompDirectiveFilterFileExt</code>.</li>
+</ul>
+</li>
+<li><code>cmd.MarkZshCompPositionalArgumentWords()</code> is <strong>deprecated</strong> and silently ignored.
+<ul>
+<li>Instead use <code>ValidArgsFunction</code>.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+  
+
+
+
+<h3 id="behavioral-changes">Behavioral changes</h3>
+<p><strong>Noun completion</strong></p>
+<table>
+<thead>
+<tr>
+<th>Old behavior</th>
+<th>New behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No file completion by default (opposite of bash)</td>
+<td>File completion by default; use <code>ValidArgsFunction</code> with <code>ShellCompDirectiveNoFileComp</code> to turn off file completion on a per-argument basis</td>
+</tr>
+<tr>
+<td>Completion of flag names without the <code>-</code> prefix having been typed</td>
+<td>Flag names are only completed if the user has typed the first <code>-</code></td>
+</tr>
+<tr>
+<td><code>cmd.MarkZshCompPositionalArgumentFile(pos, []string{})</code> used to turn on file completion on a per-argument position basis</td>
+<td>File completion for all arguments by default; <code>cmd.MarkZshCompPositionalArgumentFile()</code> is <strong>deprecated</strong> and silently ignored</td>
+</tr>
+<tr>
+<td><code>cmd.MarkZshCompPositionalArgumentFile(pos, glob[])</code> used to turn on file completion <strong>with glob filtering</strong> on a per-argument position basis (zsh-specific)</td>
+<td><code>cmd.MarkZshCompPositionalArgumentFile()</code> is <strong>deprecated</strong> and silently ignored; use <code>ValidArgsFunction</code> with <code>ShellCompDirectiveFilterFileExt</code> for file <strong>extension</strong> filtering (not full glob filtering)</td>
+</tr>
+<tr>
+<td><code>cmd.MarkZshCompPositionalArgumentWords(pos, words[])</code> used to provide completion choices on a per-argument position basis (zsh-specific)</td>
+<td><code>cmd.MarkZshCompPositionalArgumentWords()</code> is <strong>deprecated</strong> and silently ignored; use <code>ValidArgsFunction</code> to achieve the same behavior</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Flag-value completion</strong></p>
+<table>
+<thead>
+<tr>
+<th>Old behavior</th>
+<th>New behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No file completion by default (opposite of bash)</td>
+<td>File completion by default; use <code>RegisterFlagCompletionFunc()</code> with <code>ShellCompDirectiveNoFileComp</code> to turn off file completion</td>
+</tr>
+<tr>
+<td><code>cmd.MarkFlagFilename(flag, []string{})</code> and similar used to turn on file completion</td>
+<td>File completion by default; <code>cmd.MarkFlagFilename(flag, []string{})</code> no longer needed in this context and silently ignored</td>
+</tr>
+<tr>
+<td><code>cmd.MarkFlagFilename(flag, glob[])</code>  used to turn on file completion <strong>with glob filtering</strong> (syntax of <code>[]string{&quot;*.yaml&quot;, &quot;*.yml&quot;}</code> incompatible with bash)</td>
+<td>Will continue to work, however, support for bash syntax is added and should be used instead so as to work for all shells (<code>[]string{&quot;yaml&quot;, &quot;yml&quot;}</code>)</td>
+</tr>
+<tr>
+<td><code>cmd.MarkFlagDirname(flag)</code> only completes directories (zsh-specific)</td>
+<td>Has been added for all shells</td>
+</tr>
+<tr>
+<td>Completion of a flag name does not repeat, unless flag is of type <code>*Array</code> or <code>*Slice</code> (not supported by bash)</td>
+<td>Retained for <code>zsh</code> and added to <code>fish</code></td>
+</tr>
+<tr>
+<td>Completion of a flag name does not provide the <code>=</code> form (unlike bash)</td>
+<td>Retained for <code>zsh</code> and added to <code>fish</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Improvements</strong></p>
+<ul>
+<li>Custom completion support (<code>ValidArgsFunction</code> and <code>RegisterFlagCompletionFunc()</code>)</li>
+<li>File completion by default if no other completions found</li>
+<li>Handling of required flags</li>
+<li>File extension filtering no longer mutually exclusive with bash usage</li>
+<li>Completion of directory names <em>within</em> another directory</li>
+<li>Support for <code>=</code> form of flags</li>
+</ul>
+
+  
+    
+
+
+
+  
+
+
+
+<h1 id="generating-man-pages-for-your-own-cobracommand">Generating Man Pages For Your Own cobra.Command</h1>
+<p>Generating man pages from a cobra command is incredibly easy. An example is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra/doc&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;test&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;my test program&#34;</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">header</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenManHeader</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Title</span>: <span style="color:#e6db74">&#34;MINE&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Section</span>: <span style="color:#e6db74">&#34;3&#34;</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenManTree</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#a6e22e">header</span>, <span style="color:#e6db74">&#34;/tmp&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>That will get you a man page <code>/tmp/test.3</code></p>
+
+  
+    
+
+
+
+  
+
+
+
+<h1 id="generating-markdown-docs-for-your-own-cobracommand">Generating Markdown Docs For Your Own cobra.Command</h1>
+<p>Generating Markdown pages from a cobra command is incredibly easy. An example is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra/doc&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;test&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;my test program&#34;</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenMarkdownTree</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#e6db74">&#34;/tmp&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>That will get you a Markdown document <code>/tmp/test.md</code></p>
+
+
+
+
+  
+
+
+
+<h2 id="generate-markdown-docs-for-the-entire-command-tree">Generate markdown docs for the entire command tree</h2>
+<p>This program can actually generate docs for the kubectl command in the kubernetes project</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;io/ioutil&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;k8s.io/kubernetes/pkg/kubectl/cmd&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmdutil</span> <span style="color:#e6db74">&#34;k8s.io/kubernetes/pkg/kubectl/cmd/util&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra/doc&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">kubectl</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">NewKubectlCommand</span>(<span style="color:#a6e22e">cmdutil</span>.<span style="color:#a6e22e">NewFactory</span>(<span style="color:#66d9ef">nil</span>), <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>, <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">Discard</span>, <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">Discard</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenMarkdownTree</span>(<span style="color:#a6e22e">kubectl</span>, <span style="color:#e6db74">&#34;./&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This will generate a whole series of files, one for each command in the tree, in the directory specified (in this case &ldquo;./&rdquo;)</p>
+
+
+
+
+  
+
+
+
+<h2 id="generate-markdown-docs-for-a-single-command">Generate markdown docs for a single command</h2>
+<p>You may wish to have more control over the output, or only generate for a single command, instead of the entire command tree. If this is the case you may prefer to <code>GenMarkdown</code> instead of <code>GenMarkdownTree</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">out</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenMarkdown</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#a6e22e">out</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><p>This will write the markdown doc for ONLY &ldquo;cmd&rdquo; into the out, buffer.</p>
+
+
+
+
+  
+
+
+
+<h2 id="customize-the-output">Customize the output</h2>
+<p>Both <code>GenMarkdown</code> and <code>GenMarkdownTree</code> have alternate versions with callbacks to get some control of the output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GenMarkdownTreeCustom</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">dir</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">filePrepender</span>, <span style="color:#a6e22e">linkHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GenMarkdownCustom</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">out</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>, <span style="color:#a6e22e">linkHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>The <code>filePrepender</code> will prepend the return value given the full filepath to the rendered Markdown file. A common use case is to add front matter to use the generated documentation with <a href="https://gohugo.io/">Hugo</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fmTemplate</span> = <span style="color:#e6db74">`---
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">date: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">title: &#34;%s&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">slug: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">url: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">---
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">filePrepender</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">filename</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">now</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Format</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">RFC3339</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Base</span>(<span style="color:#a6e22e">filename</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">base</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSuffix</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Ext</span>(<span style="color:#a6e22e">name</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;/commands/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">base</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">fmTemplate</span>, <span style="color:#a6e22e">now</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Replace</span>(<span style="color:#a6e22e">base</span>, <span style="color:#e6db74">&#34;_&#34;</span>, <span style="color:#e6db74">&#34; &#34;</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">url</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>linkHandler</code> can be used to customize the rendered internal links to the commands, given a filename:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">linkHandler</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">base</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSuffix</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Ext</span>(<span style="color:#a6e22e">name</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;/commands/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">base</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+  
+    
+
+
+
+  
+
+
+
+<h1 id="generating-restructured-text-docs-for-your-own-cobracommand">Generating ReStructured Text Docs For Your Own cobra.Command</h1>
+<p>Generating ReST pages from a cobra command is incredibly easy. An example is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra/doc&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;test&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;my test program&#34;</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenReSTTree</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#e6db74">&#34;/tmp&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>That will get you a ReST document <code>/tmp/test.rst</code></p>
+
+
+
+
+  
+
+
+
+<h2 id="generate-rest-docs-for-the-entire-command-tree">Generate ReST docs for the entire command tree</h2>
+<p>This program can actually generate docs for the kubectl command in the kubernetes project</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;io/ioutil&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;k8s.io/kubernetes/pkg/kubectl/cmd&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmdutil</span> <span style="color:#e6db74">&#34;k8s.io/kubernetes/pkg/kubectl/cmd/util&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra/doc&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">kubectl</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">NewKubectlCommand</span>(<span style="color:#a6e22e">cmdutil</span>.<span style="color:#a6e22e">NewFactory</span>(<span style="color:#66d9ef">nil</span>), <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>, <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">Discard</span>, <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">Discard</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenReSTTree</span>(<span style="color:#a6e22e">kubectl</span>, <span style="color:#e6db74">&#34;./&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This will generate a whole series of files, one for each command in the tree, in the directory specified (in this case &ldquo;./&rdquo;)</p>
+
+
+
+
+  
+
+
+
+<h2 id="generate-rest-docs-for-a-single-command">Generate ReST docs for a single command</h2>
+<p>You may wish to have more control over the output, or only generate for a single command, instead of the entire command tree. If this is the case you may prefer to <code>GenReST</code> instead of <code>GenReSTTree</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">out</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenReST</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#a6e22e">out</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><p>This will write the ReST doc for ONLY &ldquo;cmd&rdquo; into the out, buffer.</p>
+
+
+
+
+  
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+
+<h2 id="customize-the-output-1">Customize the output</h2>
+<p>Both <code>GenReST</code> and <code>GenReSTTree</code> have alternate versions with callbacks to get some control of the output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GenReSTTreeCustom</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">dir</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">filePrepender</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">linkHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GenReSTCustom</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">out</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>, <span style="color:#a6e22e">linkHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>The <code>filePrepender</code> will prepend the return value given the full filepath to the rendered ReST file. A common use case is to add front matter to use the generated documentation with <a href="https://gohugo.io/">Hugo</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fmTemplate</span> = <span style="color:#e6db74">`---
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">date: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">title: &#34;%s&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">slug: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">url: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">---
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">filePrepender</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">filename</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">now</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Format</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">RFC3339</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Base</span>(<span style="color:#a6e22e">filename</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">base</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSuffix</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Ext</span>(<span style="color:#a6e22e">name</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;/commands/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">base</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">fmTemplate</span>, <span style="color:#a6e22e">now</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Replace</span>(<span style="color:#a6e22e">base</span>, <span style="color:#e6db74">&#34;_&#34;</span>, <span style="color:#e6db74">&#34; &#34;</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">url</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>linkHandler</code> can be used to customize the rendered links to the commands, given a command name and reference. This is useful while converting rst to html or while generating documentation with tools like Sphinx where <code>:ref:</code> is used:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Sphinx cross-referencing format
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">linkHandler</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">ref</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;:ref:`%s &lt;%s&gt;`&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">ref</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+  
+    
+
+
+
+  
+
+
+
+<h1 id="generating-yaml-docs-for-your-own-cobracommand">Generating Yaml Docs For Your Own cobra.Command</h1>
+<p>Generating yaml files from a cobra command is incredibly easy. An example is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra/doc&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;test&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;my test program&#34;</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenYamlTree</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#e6db74">&#34;/tmp&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>That will get you a Yaml document <code>/tmp/test.yaml</code></p>
+
+
+
+
+  
+
+
+
+<h2 id="generate-yaml-docs-for-the-entire-command-tree">Generate yaml docs for the entire command tree</h2>
+<p>This program can actually generate docs for the kubectl command in the kubernetes project</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;io/ioutil&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;k8s.io/kubernetes/pkg/kubectl/cmd&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmdutil</span> <span style="color:#e6db74">&#34;k8s.io/kubernetes/pkg/kubectl/cmd/util&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra/doc&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">kubectl</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">NewKubectlCommand</span>(<span style="color:#a6e22e">cmdutil</span>.<span style="color:#a6e22e">NewFactory</span>(<span style="color:#66d9ef">nil</span>), <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdin</span>, <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">Discard</span>, <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">Discard</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenYamlTree</span>(<span style="color:#a6e22e">kubectl</span>, <span style="color:#e6db74">&#34;./&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This will generate a whole series of files, one for each command in the tree, in the directory specified (in this case &ldquo;./&rdquo;)</p>
+
+
+
+
+  
+
+
+
+<h2 id="generate-yaml-docs-for-a-single-command">Generate yaml docs for a single command</h2>
+<p>You may wish to have more control over the output, or only generate for a single command, instead of the entire command tree. If this is the case you may prefer to <code>GenYaml</code> instead of <code>GenYamlTree</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">out</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">GenYaml</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#a6e22e">out</span>)
+</span></span></code></pre></div><p>This will write the yaml doc for ONLY &ldquo;cmd&rdquo; into the out, buffer.</p>
+
+
+
+
+  
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+
+<h2 id="customize-the-output-2">Customize the output</h2>
+<p>Both <code>GenYaml</code> and <code>GenYamlTree</code> have alternate versions with callbacks to get some control of the output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GenYamlTreeCustom</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">dir</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">filePrepender</span>, <span style="color:#a6e22e">linkHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GenYamlCustom</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">out</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>, <span style="color:#a6e22e">linkHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>The <code>filePrepender</code> will prepend the return value given the full filepath to the rendered Yaml file. A common use case is to add front matter to use the generated documentation with <a href="https://gohugo.io/">Hugo</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fmTemplate</span> = <span style="color:#e6db74">`---
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">date: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">title: &#34;%s&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">slug: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">url: %s
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">---
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">filePrepender</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">filename</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">now</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Format</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">RFC3339</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Base</span>(<span style="color:#a6e22e">filename</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">base</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSuffix</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Ext</span>(<span style="color:#a6e22e">name</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;/commands/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">base</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">fmTemplate</span>, <span style="color:#a6e22e">now</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Replace</span>(<span style="color:#a6e22e">base</span>, <span style="color:#e6db74">&#34;_&#34;</span>, <span style="color:#e6db74">&#34; &#34;</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">url</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>linkHandler</code> can be used to customize the rendered internal links to the commands, given a filename:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">linkHandler</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">base</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSuffix</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">Ext</span>(<span style="color:#a6e22e">name</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;/commands/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToLower</span>(<span style="color:#a6e22e">base</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+  
+    
+
+
+
+  
+
+
+
+<h1 id="projects-using-cobra">Projects using Cobra</h1>
+<ul>
+<li><a href="https://github.com/allero-io/allero">Allero</a></li>
+<li><a href="https://benchmark.vitess.io">Arewefastyet</a></li>
+<li><a href="https://github.com/arduino/arduino-cli">Arduino CLI</a></li>
+<li><a href="https://blevesearch.com/">Bleve</a></li>
+<li><a href="https://cilium.io/">Cilium</a></li>
+<li><a href="https://github.com/cloudquery/cloudquery">CloudQuery</a></li>
+<li><a href="https://www.cockroachlabs.com/">CockroachDB</a></li>
+<li><a href="https://github.com/edgelesssys/constellation">Constellation</a></li>
+<li><a href="https://github.com/cosmos/cosmos-sdk">Cosmos SDK</a></li>
+<li><a href="https://github.com/datreeio/datree">Datree</a></li>
+<li><a href="https://github.com/derekparker/delve">Delve</a></li>
+<li><a href="https://github.com/docker/distribution">Docker (distribution)</a></li>
+<li><a href="https://encore.dev">Encore</a></li>
+<li><a href="https://etcd.io/">Etcd</a></li>
+<li><a href="https://github.com/gardener/gardenctl">Gardener</a></li>
+<li><a href="https://github.com/giantswarm/gsctl">Giant Swarm&rsquo;s gsctl</a></li>
+<li><a href="https://github.com/erdaltsksn/git-bump">Git Bump</a></li>
+<li><a href="https://github.com/cli/cli">GitHub CLI</a></li>
+<li><a href="https://github.com/erdaltsksn/gh-label">GitHub Labeler</a></li>
+<li><a href="https://golangci-lint.run">Golangci-lint</a></li>
+<li><a href="https://github.com/gopherjs/gopherjs">GopherJS</a></li>
+<li><a href="https://goreleaser.com">GoReleaser</a></li>
+<li><a href="https://helm.sh">Helm</a></li>
+<li><a href="https://gohugo.io">Hugo</a></li>
+<li><a href="https://github.com/infracost/infracost">Infracost</a></li>
+<li><a href="https://istio.io">Istio</a></li>
+<li><a href="https://github.com/kool-dev/kool">Kool</a></li>
+<li><a href="https://kubernetes.io/">Kubernetes</a></li>
+<li><a href="https://github.com/kubescape/kubescape">Kubescape</a></li>
+<li><a href="https://github.com/kubevirt/kubevirt">KubeVirt</a></li>
+<li><a href="https://linkerd.io/">Linkerd</a></li>
+<li><a href="https://github.com/canonical/lxd">LXC</a></li>
+<li><a href="https://github.com/mattermost/mattermost-server">Mattermost-server</a></li>
+<li><a href="https://mercure.rocks/">Mercure</a></li>
+<li><a href="https://github.com/meroxa/cli">Meroxa CLI</a></li>
+<li><a href="https://github.com/metal-stack/metalctl">Metal Stack CLI</a></li>
+<li><a href="https://github.com/moby/moby">Moby (former Docker)</a></li>
+<li><a href="https://github.com/Moldy-Community/moldy">Moldy</a></li>
+<li><a href="https://github.com/lindell/multi-gitter">Multi-gitter</a></li>
+<li><a href="https://github.com/nanobox-io/nanobox">Nanobox</a>/<a href="https://github.com/nanopack">Nanopack</a></li>
+<li><a href="https://nfpm.goreleaser.com">nFPM</a></li>
+<li><a href="https://github.com/okteto/okteto">Okteto</a></li>
+<li><a href="https://www.openshift.com/">OpenShift</a></li>
+<li><a href="https://github.com/ory/hydra">Ory Hydra</a></li>
+<li><a href="https://github.com/ory/kratos">Ory Kratos</a></li>
+<li><a href="https://github.com/pixie-io/pixie">Pixie</a></li>
+<li><a href="https://github.com/0xPolygon/polygon-edge">Polygon Edge</a></li>
+<li><a href="https://github.com/alibaba/pouch">Pouch</a></li>
+<li><a href="https://www.projectatomic.io/">ProjectAtomic (enterprise)</a></li>
+<li><a href="https://github.com/uber/prototool">Prototool</a></li>
+<li><a href="https://www.pulumi.com">Pulumi</a></li>
+<li><a href="https://github.com/claudiodangelis/qrcp">QRcp</a></li>
+<li><a href="https://github.com/erdaltsksn/random">Random</a></li>
+<li><a href="https://rclone.org/">Rclone</a></li>
+<li><a href="https://github.com/scaleway/scaleway-cli">Scaleway CLI</a></li>
+<li><a href="https://github.com/SiaFoundation/siad">Sia</a></li>
+<li><a href="https://skaffold.dev/">Skaffold</a></li>
+<li><a href="https://github.com/tendermint/tendermint">Tendermint</a></li>
+<li><a href="https://github.com/twitchdev/twitch-cli">Twitch CLI</a></li>
+<li><a href="https://github.com/UpCloudLtd/upcloud-cli">UpCloud CLI (<code>upctl</code>)</a></li>
+<li><a href="https://vitess.io">Vitess</a></li>
+<li>VMware&rsquo;s <a href="https://github.com/vmware-tanzu/community-edition">Tanzu Community Edition</a> &amp; <a href="https://github.com/vmware-tanzu/tanzu-framework">Tanzu Framework</a></li>
+<li><a href="https://werf.io/">Werf</a></li>
+<li><a href="https://github.com/zitadel/zitadel">ZITADEL</a></li>
+</ul>
+
+  
+    
+
+
+
+  
+
+
+
+<h1 id="user-guide">User Guide</h1>
+<p>While you are welcome to provide your own organization, typically a Cobra-based
+application will follow the following organizational structure:</p>
+<pre tabindex="0"><code>  ▾ appName/
+    ▾ cmd/
+        add.go
+        your.go
+        commands.go
+        here.go
+      main.go
+</code></pre><p>In a Cobra app, typically the main.go file is very bare. It serves one purpose: initializing Cobra.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;{pathToYourApp}/cmd&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Execute</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h2 id="using-the-cobra-generator">Using the Cobra Generator</h2>
+<p>Cobra-CLI is its own program that will create your application and add any commands you want.
+It&rsquo;s the easiest way to incorporate Cobra into your application.</p>
+<p>For complete details on using the Cobra generator, please refer to <a href="https://github.com/spf13/cobra-cli/blob/main/README.md">The Cobra-CLI Generator README</a></p>
+
+
+
+
+  
+
+
+
+<h2 id="using-the-cobra-library">Using the Cobra Library</h2>
+<p>To manually implement Cobra you need to create a bare main.go file and a rootCmd file.
+You will optionally provide additional commands as you see fit.</p>
+
+
+
+
+  
+
+
+
+<h3 id="create-rootcmd">Create rootCmd</h3>
+<p>Cobra doesn&rsquo;t require any special constructors. Simply create your commands.</p>
+<p>Ideally you place this in app/cmd/root.go:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rootCmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;hugo&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;Hugo is a very fast static site generator&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Long</span>: <span style="color:#e6db74">`A Fast and Flexible Static Site Generator built with
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                love by spf13 and friends in Go.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                Complete documentation is available at https://gohugo.io/documentation/`</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Do Stuff Here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  },
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Execute</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Execute</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintln</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>You will additionally define flags and handle configuration in your init() function.</p>
+<p>For example cmd/root.go:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">cmd</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/viper&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Used for flags.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cfgFile</span>     <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">userLicense</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;cobra-cli&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;A generator for Cobra based Applications&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Long</span>: <span style="color:#e6db74">`Cobra is a CLI library for Go that empowers applications.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">This application is a tool to generate the needed files
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">to quickly create a Cobra application.`</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Execute executes the root command.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Execute</span>() <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Execute</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">OnInitialize</span>(<span style="color:#a6e22e">initConfig</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cfgFile</span>, <span style="color:#e6db74">&#34;config&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;config file (default is $HOME/.cobra.yaml)&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">StringP</span>(<span style="color:#e6db74">&#34;author&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;YOUR NAME&#34;</span>, <span style="color:#e6db74">&#34;author name for copyright attribution&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">StringVarP</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">userLicense</span>, <span style="color:#e6db74">&#34;license&#34;</span>, <span style="color:#e6db74">&#34;l&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;name of license for the project&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">Bool</span>(<span style="color:#e6db74">&#34;viper&#34;</span>, <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;use Viper for configuration&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">BindPFlag</span>(<span style="color:#e6db74">&#34;author&#34;</span>, <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">Lookup</span>(<span style="color:#e6db74">&#34;author&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">BindPFlag</span>(<span style="color:#e6db74">&#34;useViper&#34;</span>, <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">Lookup</span>(<span style="color:#e6db74">&#34;viper&#34;</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">SetDefault</span>(<span style="color:#e6db74">&#34;author&#34;</span>, <span style="color:#e6db74">&#34;NAME HERE &lt;EMAIL ADDRESS&gt;&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">SetDefault</span>(<span style="color:#e6db74">&#34;license&#34;</span>, <span style="color:#e6db74">&#34;apache&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">addCmd</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">initCmd</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">initConfig</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">cfgFile</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Use config file from the flag.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">SetConfigFile</span>(<span style="color:#a6e22e">cfgFile</span>)
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Find home directory.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">home</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">UserHomeDir</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">CheckErr</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Search config in home directory with name &#34;.cobra&#34; (without extension).
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">AddConfigPath</span>(<span style="color:#a6e22e">home</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">SetConfigType</span>(<span style="color:#e6db74">&#34;yaml&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">SetConfigName</span>(<span style="color:#e6db74">&#34;.cobra&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">AutomaticEnv</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">ReadInConfig</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Using config file:&#34;</span>, <span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">ConfigFileUsed</span>())
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h3 id="create-your-maingo">Create your main.go</h3>
+<p>With the root command you need to have your main function execute it.
+Execute should be run on the root for clarity, though it can be called on any command.</p>
+<p>In a Cobra app, typically the main.go file is very bare. It serves one purpose: to initialize Cobra.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;{pathToYourApp}/cmd&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Execute</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h3 id="create-additional-commands">Create additional commands</h3>
+<p>Additional commands can be defined and typically are each given their own file
+inside of the cmd/ directory.</p>
+<p>If you wanted to create a version command you would create cmd/version.go and
+populate it with the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">cmd</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">versionCmd</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">versionCmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;version&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;Print the version number of Hugo&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Long</span>:  <span style="color:#e6db74">`All software has versions. This is Hugo&#39;s`</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hugo Static Site Generator v0.9 -- HEAD&#34;</span>)
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h3 id="organizing-subcommands">Organizing subcommands</h3>
+<p>A command may have subcommands which in turn may have other subcommands. This is achieved by using
+<code>AddCommand</code>. In some cases, especially in larger applications, each subcommand may be defined in
+its own go package.</p>
+<p>The suggested approach is for the parent command to use <code>AddCommand</code> to add its most immediate
+subcommands. For example, consider the following directory structure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>├── cmd
+</span></span><span style="display:flex;"><span>│   ├── root.go
+</span></span><span style="display:flex;"><span>│   └── sub1
+</span></span><span style="display:flex;"><span>│       ├── sub1.go
+</span></span><span style="display:flex;"><span>│       └── sub2
+</span></span><span style="display:flex;"><span>│           ├── leafA.go
+</span></span><span style="display:flex;"><span>│           ├── leafB.go
+</span></span><span style="display:flex;"><span>│           └── sub2.go
+</span></span><span style="display:flex;"><span>└── main.go
+</span></span></code></pre></div><p>In this case:</p>
+<ul>
+<li>The <code>init</code> function of <code>root.go</code> adds the command defined in <code>sub1.go</code> to the root command.</li>
+<li>The <code>init</code> function of <code>sub1.go</code> adds the command defined in <code>sub2.go</code> to the sub1 command.</li>
+<li>The <code>init</code> function of <code>sub2.go</code> adds the commands defined in <code>leafA.go</code> and <code>leafB.go</code> to the
+sub2 command.</li>
+</ul>
+<p>This approach ensures the subcommands are always included at compile time while avoiding cyclic
+references.</p>
+
+
+
+
+  
+
+
+
+<h3 id="returning-and-handling-errors">Returning and handling errors</h3>
+<p>If you wish to return an error to the caller of a command, <code>RunE</code> can be used.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">cmd</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">tryCmd</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tryCmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;try&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;Try and possibly fail at something&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">RunE</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">someFunc</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The error can then be caught at the execute function call.</p>
+
+
+
+
+  
+
+
+
+<h2 id="working-with-flags">Working with Flags</h2>
+<p>Flags provide modifiers to control how the action command operates.</p>
+
+
+
+
+  
+
+
+
+<h3 id="assign-flags-to-a-command">Assign flags to a command</h3>
+<p>Since the flags are defined and used in different locations, we need to
+define a variable outside with the correct scope to assign the flag to
+work with.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Verbose</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Source</span> <span style="color:#66d9ef">string</span>
+</span></span></code></pre></div><p>There are two different approaches to assign a flag.</p>
+
+
+
+
+  
+
+
+
+<h3 id="persistent-flags">Persistent Flags</h3>
+<p>A flag can be &lsquo;persistent&rsquo;, meaning that this flag will be available to the
+command it&rsquo;s assigned to as well as every command under that command. For
+global flags, assign a flag as a persistent flag on the root.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">BoolVarP</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Verbose</span>, <span style="color:#e6db74">&#34;verbose&#34;</span>, <span style="color:#e6db74">&#34;v&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#e6db74">&#34;verbose output&#34;</span>)
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h3 id="local-flags">Local Flags</h3>
+<p>A flag can also be assigned locally, which will only apply to that specific command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">localCmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">StringVarP</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Source</span>, <span style="color:#e6db74">&#34;source&#34;</span>, <span style="color:#e6db74">&#34;s&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;Source directory to read from&#34;</span>)
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h3 id="local-flag-on-parent-commands">Local Flag on Parent Commands</h3>
+<p>By default, Cobra only parses local flags on the target command, and any local flags on
+parent commands are ignored. By enabling <code>Command.TraverseChildren</code>, Cobra will
+parse local flags on each command before executing the target command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">command</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Use</span>: <span style="color:#e6db74">&#34;print [OPTIONS] [COMMANDS]&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">TraverseChildren</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h3 id="bind-flags-with-config">Bind Flags with Config</h3>
+<p>You can also bind your flags with <a href="https://github.com/spf13/viper">viper</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">author</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">author</span>, <span style="color:#e6db74">&#34;author&#34;</span>, <span style="color:#e6db74">&#34;YOUR NAME&#34;</span>, <span style="color:#e6db74">&#34;Author name for copyright attribution&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">BindPFlag</span>(<span style="color:#e6db74">&#34;author&#34;</span>, <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">Lookup</span>(<span style="color:#e6db74">&#34;author&#34;</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In this example, the persistent flag <code>author</code> is bound with <code>viper</code>.
+<strong>Note</strong>: the variable <code>author</code> will not be set to the value from config,
+when the <code>--author</code> flag is provided by user.</p>
+<p>More in <a href="https://github.com/spf13/viper#working-with-flags">viper documentation</a>.</p>
+
+
+
+
+  
+
+
+
+<h3 id="required-flags">Required flags</h3>
+<p>Flags are optional by default. If instead you wish your command to report an error
+when a flag has not been set, mark it as required:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">StringVarP</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Region</span>, <span style="color:#e6db74">&#34;region&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;AWS region (required)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">MarkFlagRequired</span>(<span style="color:#e6db74">&#34;region&#34;</span>)
+</span></span></code></pre></div><p>Or, for persistent flags:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">StringVarP</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Region</span>, <span style="color:#e6db74">&#34;region&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;AWS region (required)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">MarkPersistentFlagRequired</span>(<span style="color:#e6db74">&#34;region&#34;</span>)
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h3 id="flag-groups">Flag Groups</h3>
+<p>If you have different flags that must be provided together (e.g. if they provide the <code>--username</code> flag they MUST provide the <code>--password</code> flag as well) then
+Cobra can enforce that requirement:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">StringVarP</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>, <span style="color:#e6db74">&#34;username&#34;</span>, <span style="color:#e6db74">&#34;u&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;Username (required if password is set)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">StringVarP</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pw</span>, <span style="color:#e6db74">&#34;password&#34;</span>, <span style="color:#e6db74">&#34;p&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;Password (required if username is set)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">MarkFlagsRequiredTogether</span>(<span style="color:#e6db74">&#34;username&#34;</span>, <span style="color:#e6db74">&#34;password&#34;</span>)
+</span></span></code></pre></div><p>You can also prevent different flags from being provided together if they represent mutually
+exclusive options such as specifying an output format as either <code>--json</code> or <code>--yaml</code> but never both:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">BoolVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ofJson</span>, <span style="color:#e6db74">&#34;json&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#e6db74">&#34;Output in JSON&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">BoolVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ofYaml</span>, <span style="color:#e6db74">&#34;yaml&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#e6db74">&#34;Output in YAML&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">MarkFlagsMutuallyExclusive</span>(<span style="color:#e6db74">&#34;json&#34;</span>, <span style="color:#e6db74">&#34;yaml&#34;</span>)
+</span></span></code></pre></div><p>If you want to require at least one flag from a group to be present, you can use <code>MarkFlagsOneRequired</code>.
+This can be combined with <code>MarkFlagsMutuallyExclusive</code> to enforce exactly one flag from a given group:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">BoolVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ofJson</span>, <span style="color:#e6db74">&#34;json&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#e6db74">&#34;Output in JSON&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">BoolVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ofYaml</span>, <span style="color:#e6db74">&#34;yaml&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#e6db74">&#34;Output in YAML&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">MarkFlagsOneRequired</span>(<span style="color:#e6db74">&#34;json&#34;</span>, <span style="color:#e6db74">&#34;yaml&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">MarkFlagsMutuallyExclusive</span>(<span style="color:#e6db74">&#34;json&#34;</span>, <span style="color:#e6db74">&#34;yaml&#34;</span>)
+</span></span></code></pre></div><p>In these cases:</p>
+<ul>
+<li>both local and persistent flags can be used
+<ul>
+<li><strong>NOTE:</strong> the group is only enforced on commands where every flag is defined</li>
+</ul>
+</li>
+<li>a flag may appear in multiple groups</li>
+<li>a group may contain any number of flags</li>
+</ul>
+
+
+
+
+  
+
+
+
+<h2 id="positional-and-custom-arguments">Positional and Custom Arguments</h2>
+<p>Validation of positional arguments can be specified using the <code>Args</code> field of <code>Command</code>.
+The following validators are built in:</p>
+<ul>
+<li>Number of arguments:
+<ul>
+<li><code>NoArgs</code> - report an error if there are any positional args.</li>
+<li><code>ArbitraryArgs</code> - accept any number of args.</li>
+<li><code>MinimumNArgs(int)</code> - report an error if less than N positional args are provided.</li>
+<li><code>MaximumNArgs(int)</code> - report an error if more than N positional args are provided.</li>
+<li><code>ExactArgs(int)</code> - report an error if there are not exactly N positional args.</li>
+<li><code>RangeArgs(min, max)</code> - report an error if the number of args is not between <code>min</code> and <code>max</code>.</li>
+</ul>
+</li>
+<li>Content of the arguments:
+<ul>
+<li><code>OnlyValidArgs</code> - report an error if there are any positional args not specified in the <code>ValidArgs</code> field of <code>Command</code>, which can optionally be set to a list of valid values for positional args.</li>
+</ul>
+</li>
+</ul>
+<p>If <code>Args</code> is undefined or <code>nil</code>, it defaults to <code>ArbitraryArgs</code>.</p>
+<p>Moreover, <code>MatchAll(pargs ...PositionalArgs)</code> enables combining existing checks with arbitrary other checks.
+For instance, if you want to report an error if there are not exactly N positional args OR if there are any positional
+args that are not in the <code>ValidArgs</code> field of <code>Command</code>, you can call <code>MatchAll</code> on <code>ExactArgs</code> and <code>OnlyValidArgs</code>, as
+shown below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;hello&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Args</span>: <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">MatchAll</span>(<span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">ExactArgs</span>(<span style="color:#ae81ff">2</span>), <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">OnlyValidArgs</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, World!&#34;</span>)
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>It is possible to set any custom validator that satisfies <code>func(cmd *cobra.Command, args []string) error</code>.
+For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;hello&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Args</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Optionally run one of the validators provided by cobra
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">MinimumNArgs</span>(<span style="color:#ae81ff">1</span>)(<span style="color:#a6e22e">cmd</span>, <span style="color:#a6e22e">args</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Run the custom validation logic
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">myapp</span>.<span style="color:#a6e22e">IsValidColor</span>(<span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>]) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;invalid color specified: %s&#34;</span>, <span style="color:#a6e22e">args</span>[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, World!&#34;</span>)
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h2 id="example">Example</h2>
+<p>In the example below, we have defined three commands. Two are at the top level
+and one (cmdTimes) is a child of one of the top commands. In this case the root
+is not executable, meaning that a subcommand is required. This is accomplished
+by not providing a &lsquo;Run&rsquo; for the &lsquo;rootCmd&rsquo;.</p>
+<p>We have only defined one flag for a single command.</p>
+<p>More documentation about flags is available at <a href="https://github.com/spf13/pflag">https://github.com/spf13/pflag</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;strings&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">echoTimes</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cmdPrint</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;print [string to print]&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;Print anything to the screen&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Long</span>: <span style="color:#e6db74">`print is for printing anything back to the screen.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">For many years people have printed back to the screen.`</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Args</span>: <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">MinimumNArgs</span>(<span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Print: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">args</span>, <span style="color:#e6db74">&#34; &#34;</span>))
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cmdEcho</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;echo [string to echo]&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;Echo anything to the screen&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Long</span>: <span style="color:#e6db74">`echo is for echoing anything back.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Echo works a lot like print, except it has a child command.`</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Args</span>: <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">MinimumNArgs</span>(<span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Echo: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">args</span>, <span style="color:#e6db74">&#34; &#34;</span>))
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cmdTimes</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;times [string to echo]&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;Echo anything to the screen more times&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Long</span>: <span style="color:#e6db74">`echo things multiple times back to the user by providing
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">a count and a string.`</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Args</span>: <span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">MinimumNArgs</span>(<span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">echoTimes</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Echo: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">args</span>, <span style="color:#e6db74">&#34; &#34;</span>))
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cmdTimes</span>.<span style="color:#a6e22e">Flags</span>().<span style="color:#a6e22e">IntVarP</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">echoTimes</span>, <span style="color:#e6db74">&#34;times&#34;</span>, <span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;times to echo the input&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rootCmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{<span style="color:#a6e22e">Use</span>: <span style="color:#e6db74">&#34;app&#34;</span>}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">cmdPrint</span>, <span style="color:#a6e22e">cmdEcho</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cmdEcho</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">cmdTimes</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Execute</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>For a more complete example of a larger application, please checkout <a href="https://gohugo.io/">Hugo</a>.</p>
+
+
+
+
+  
+
+
+
+<h2 id="help-command">Help Command</h2>
+<p>Cobra automatically adds a help command to your application when you have subcommands.
+This will be called when a user runs &lsquo;app help&rsquo;. Additionally, help will also
+support all other commands as input. Say, for instance, you have a command called
+&lsquo;create&rsquo; without any additional configuration; Cobra will work when &lsquo;app help
+create&rsquo; is called.  Every command will automatically have the &lsquo;&ndash;help&rsquo; flag added.</p>
+
+
+
+
+  
+
+
+
+<h3 id="example-1">Example</h3>
+<p>The following output is automatically generated by Cobra. Nothing beyond the
+command and flag definitions are needed.</p>
+<pre><code>$ cobra-cli help
+
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.
+
+Usage:
+  cobra-cli [command]
+
+Available Commands:
+  add         Add a command to a Cobra Application
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  init        Initialize a Cobra Application
+
+Flags:
+  -a, --author string    author name for copyright attribution (default &quot;YOUR NAME&quot;)
+      --config string    config file (default is $HOME/.cobra.yaml)
+  -h, --help             help for cobra-cli
+  -l, --license string   name of license for the project
+      --viper            use Viper for configuration
+
+Use &quot;cobra-cli [command] --help&quot; for more information about a command.
+</code></pre>
+<p>Help is just a command like any other. There is no special logic or behavior
+around it. In fact, you can provide your own if you want.</p>
+
+
+
+
+  
+
+
+
+<h3 id="grouping-commands-in-help">Grouping commands in help</h3>
+<p>Cobra supports grouping of available commands in the help output.  To group commands, each group must be explicitly
+defined using <code>AddGroup()</code> on the parent command.  Then a subcommand can be added to a group using the <code>GroupID</code> element
+of that subcommand. The groups will appear in the help output in the same order as they are defined using different
+calls to <code>AddGroup()</code>.  If you use the generated <code>help</code> or <code>completion</code> commands, you can set their group ids using
+<code>SetHelpCommandGroupId()</code> and <code>SetCompletionCommandGroupId()</code> on the root command, respectively.</p>
+
+
+
+
+  
+
+
+
+<h3 id="defining-your-own-help">Defining your own help</h3>
+<p>You can provide your own Help command or your own template for the default command to use
+with the following functions:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">SetHelpCommand</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">SetHelpFunc</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>, []<span style="color:#66d9ef">string</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">SetHelpTemplate</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>)
+</span></span></code></pre></div><p>The latter two will also apply to any children commands.</p>
+
+
+
+
+  
+
+
+
+<h2 id="usage-message">Usage Message</h2>
+<p>When the user provides an invalid flag or invalid command, Cobra responds by
+showing the user the &lsquo;usage&rsquo;.</p>
+
+
+
+
+  
+
+
+
+<h3 id="example-2">Example</h3>
+<p>You may recognize this from the help above. That&rsquo;s because the default help
+embeds the usage as part of its output.</p>
+<pre><code>$ cobra-cli --invalid
+Error: unknown flag: --invalid
+Usage:
+  cobra-cli [command]
+
+Available Commands:
+  add         Add a command to a Cobra Application
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  init        Initialize a Cobra Application
+
+Flags:
+  -a, --author string    author name for copyright attribution (default &quot;YOUR NAME&quot;)
+      --config string    config file (default is $HOME/.cobra.yaml)
+  -h, --help             help for cobra-cli
+  -l, --license string   name of license for the project
+      --viper            use Viper for configuration
+
+Use &quot;cobra [command] --help&quot; for more information about a command.
+</code></pre>
+
+
+
+
+  
+
+
+
+<h3 id="defining-your-own-usage">Defining your own usage</h3>
+<p>You can provide your own usage function or template for Cobra to use.
+Like help, the function and template are overridable through public methods:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">SetUsageFunc</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">Command</span>) <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">SetUsageTemplate</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>)
+</span></span></code></pre></div>
+
+
+
+  
+
+
+
+<h2 id="version-flag">Version Flag</h2>
+<p>Cobra adds a top-level &lsquo;&ndash;version&rsquo; flag if the Version field is set on the root command.
+Running an application with the &lsquo;&ndash;version&rsquo; flag will print the version to stdout using
+the version template. The template can be customized using the
+<code>cmd.SetVersionTemplate(s string)</code> function.</p>
+
+
+
+
+  
+
+
+
+<h2 id="error-message-prefix">Error Message Prefix</h2>
+<p>Cobra prints an error message when receiving a non-nil error value.
+The default error message is <code>Error: &lt;error contents&gt;</code>.
+The Prefix, <code>Error:</code> can be customized using the <code>cmd.SetErrPrefix(s string)</code> function.</p>
+
+
+
+
+  
+
+
+
+<h2 id="prerun-and-postrun-hooks">PreRun and PostRun Hooks</h2>
+<p>It is possible to run functions before or after the main <code>Run</code> function of your command. The <code>PersistentPreRun</code> and <code>PreRun</code> functions will be executed before <code>Run</code>. <code>PersistentPostRun</code> and <code>PostRun</code> will be executed after <code>Run</code>.  The <code>Persistent*Run</code> functions will be inherited by children if they do not declare their own.  The <code>*PreRun</code> and <code>*PostRun</code> functions will only be executed if the <code>Run</code> function of the current command has been declared.  These functions are run in the following order:</p>
+<ul>
+<li><code>PersistentPreRun</code></li>
+<li><code>PreRun</code></li>
+<li><code>Run</code></li>
+<li><code>PostRun</code></li>
+<li><code>PersistentPostRun</code></li>
+</ul>
+<p>An example of two commands which use all of these features is below.  When the subcommand is executed, it will run the root command&rsquo;s <code>PersistentPreRun</code> but not the root command&rsquo;s <code>PersistentPostRun</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rootCmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;root [sub]&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;My root command&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PersistentPreRun</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside rootCmd PersistentPreRun with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PreRun</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside rootCmd PreRun with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside rootCmd Run with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PostRun</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside rootCmd PostRun with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PersistentPostRun</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside rootCmd PersistentPostRun with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">subCmd</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Use</span>:   <span style="color:#e6db74">&#34;sub [no options!]&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Short</span>: <span style="color:#e6db74">&#34;My subcommand&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PreRun</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside subCmd PreRun with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside subCmd Run with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PostRun</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside subCmd PostRun with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PersistentPostRun</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Inside subCmd PersistentPostRun with args: %v\n&#34;</span>, <span style="color:#a6e22e">args</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">subCmd</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">SetArgs</span>([]<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;&#34;</span>})
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Execute</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">SetArgs</span>([]<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;sub&#34;</span>, <span style="color:#e6db74">&#34;arg1&#34;</span>, <span style="color:#e6db74">&#34;arg2&#34;</span>})
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Execute</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Output:</p>
+<pre tabindex="0"><code>Inside rootCmd PersistentPreRun with args: []
+Inside rootCmd PreRun with args: []
+Inside rootCmd Run with args: []
+Inside rootCmd PostRun with args: []
+Inside rootCmd PersistentPostRun with args: []
+
+Inside rootCmd PersistentPreRun with args: [arg1 arg2]
+Inside subCmd PreRun with args: [arg1 arg2]
+Inside subCmd Run with args: [arg1 arg2]
+Inside subCmd PostRun with args: [arg1 arg2]
+Inside subCmd PersistentPostRun with args: [arg1 arg2]
+</code></pre><p>By default, only the first persistent hook found in the command chain is executed.
+That is why in the above output, the <code>rootCmd PersistentPostRun</code> was not called for a child command.
+Set <code>EnableTraverseRunHooks</code> global variable to <code>true</code> if you want to execute all parents&rsquo; persistent hooks.</p>
+
+
+
+
+  
+
+
+
+<h2 id="suggestions-when-unknown-command-happens">Suggestions when &ldquo;unknown command&rdquo; happens</h2>
+<p>Cobra will print automatic suggestions when &ldquo;unknown command&rdquo; errors happen. This allows Cobra to behave similarly to the <code>git</code> command when a typo happens. For example:</p>
+<pre tabindex="0"><code>$ hugo srever
+Error: unknown command &#34;srever&#34; for &#34;hugo&#34;
+
+Did you mean this?
+        server
+
+Run &#39;hugo --help&#39; for usage.
+</code></pre><p>Suggestions are automatically generated based on existing subcommands and use an implementation of <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein distance</a>. Every registered command that matches a minimum distance of 2 (ignoring case) will be displayed as a suggestion.</p>
+<p>If you need to disable suggestions or tweak the string distance in your command, use:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">command</span>.<span style="color:#a6e22e">DisableSuggestions</span> = <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>or</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">command</span>.<span style="color:#a6e22e">SuggestionsMinimumDistance</span> = <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>You can also explicitly set names for which a given command will be suggested using the <code>SuggestFor</code> attribute. This allows suggestions for strings that are not close in terms of string distance, but make sense in your set of commands but for which
+you don&rsquo;t want aliases. Example:</p>
+<pre tabindex="0"><code>$ kubectl remove
+Error: unknown command &#34;remove&#34; for &#34;kubectl&#34;
+
+Did you mean this?
+        delete
+
+Run &#39;kubectl help&#39; for usage.
+</code></pre>
+
+
+
+  
+
+
+
+<h2 id="generating-documentation-for-your-command">Generating documentation for your command</h2>
+<p>Cobra can generate documentation based on subcommands, flags, etc.
+Read more about it in the <a href="docgen/_index.md">docs generation documentation</a>.</p>
+
+
+
+
+  
+
+
+
+<h2 id="generating-shell-completions">Generating shell completions</h2>
+<p>Cobra can generate a shell-completion file for the following shells: bash, zsh, fish, PowerShell.
+If you add more information to your commands, these completions can be amazingly powerful and flexible.
+Read more about it in <a href="completions/_index.md">Shell Completions</a>.</p>
+
+
+
+
+  
+
+
+
+<h2 id="providing-active-help">Providing Active Help</h2>
+<p>Cobra makes use of the shell-completion system to define a framework allowing you to provide Active Help to your users.
+Active Help are messages (hints, warnings, etc) printed as the program is being used.
+Read more about it in <a href="active_help.md">Active Help</a>.</p>
+
+
+
+
+  
+
+
+
+<h2 id="creating-a-plugin">Creating a plugin</h2>
+<p>When creating a plugin for tools like <em>kubectl</em>, the executable is named
+<code>kubectl-myplugin</code>, but it is used as <code>kubectl myplugin</code>. To fix help
+messages and completions, annotate the root command with the
+<code>cobra.CommandDisplayNameAnnotation</code> annotation.</p>
+
+
+
+
+  
+
+
+
+<h3 id="example-kubectl-plugin">Example kubectl plugin</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/spf13/cobra&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Use</span>: <span style="color:#e6db74">&#34;kubectl-myplugin&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Annotations</span>: <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">CommandDisplayNameAnnotation</span>: <span style="color:#e6db74">&#34;kubectl myplugin&#34;</span>,
+</span></span><span style="display:flex;"><span>		},
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">subCmd</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Use</span>: <span style="color:#e6db74">&#34;subcmd&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;kubectl myplugin subcmd&#34;</span>)
+</span></span><span style="display:flex;"><span>		},
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">subCmd</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Execute</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Example run as a kubectl plugin:</p>
+<pre tabindex="0"><code>$ kubectl myplugin
+Usage:
+  kubectl myplugin [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  subcmd
+
+Flags:
+  -h, --help   help for kubectl myplugin
+
+Use &#34;kubectl myplugin [command] --help&#34; for more information about a command.
+</code></pre>
+  
+
+      </div>
+      <div class="dark-box">
+        
+      </div>
+    </div>
+    
+  </body>
+</html>

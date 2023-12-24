@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://spf13.github.io/cobra/active_help/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/completions/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/completions/bash/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/completions/fish/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/completions/powershell/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/completions/zsh/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/docgen/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/docgen/man/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/docgen/md/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/docgen/rest/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/docgen/yaml/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/projects_using_cobra/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/user_guide/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/categories/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/</loc>
+  </url><url>
+    <loc>https://spf13.github.io/cobra/tags/</loc>
+  </url>
+</urlset>

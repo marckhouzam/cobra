@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cobra documentation</title>
+    <link>https://spf13.github.io/cobra/completions/</link>
+    <description>Recent content on Cobra documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="https://spf13.github.io/cobra/completions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://spf13.github.io/cobra/completions/bash/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spf13.github.io/cobra/completions/bash/</guid>
+      <description>Generating Bash Completions For Your cobra.Command Please refer to Shell Completions for details.
+Bash legacy dynamic completions For backward compatibility, Cobra still supports its legacy dynamic completion solution (described below). Unlike the ValidArgsFunction solution, the legacy solution will only work for Bash shell-completion and not for other shells. This legacy solution can be used along-side ValidArgsFunction and RegisterFlagCompletionFunc(), as long as both solutions are not used for the same command.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://spf13.github.io/cobra/completions/fish/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spf13.github.io/cobra/completions/fish/</guid>
+      <description>Generating Fish Completions For Your cobra.Command Please refer to Shell Completions for details.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://spf13.github.io/cobra/completions/powershell/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spf13.github.io/cobra/completions/powershell/</guid>
+      <description>Generating PowerShell Completions For Your Own cobra.Command Please refer to Shell Completions for details.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://spf13.github.io/cobra/completions/zsh/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spf13.github.io/cobra/completions/zsh/</guid>
+      <description>Generating Zsh Completion For Your cobra.Command Please refer to Shell Completions for details.
+Zsh completions standardization Cobra 1.1 standardized its zsh completion support to align it with its other shell completions. Although the API was kept backwards-compatible, some small changes in behavior were introduced.
+Deprecation summary See further below for more details on these deprecations.
+cmd.MarkZshCompPositionalArgumentFile(pos, []string{}) is no longer needed. It is therefore deprecated and silently ignored. cmd.MarkZshCompPositionalArgumentFile(pos, glob[]) is deprecated and silently ignored.</description>
+    </item>
+    
+  </channel>
+</rss>
