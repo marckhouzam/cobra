@@ -32,6 +32,8 @@ const (
 	// ShellCompNoDescRequestCmd is the name of the hidden command that is used to request
 	// completion results without their description.  It is used by the shell completion scripts.
 	ShellCompNoDescRequestCmd = "__completeNoDesc"
+
+	shellCompCacheFile = "/tmp/cobra.cache.txt"
 )
 
 // Global map of flag completion functions. Make sure to use flagCompletionMutex before you try to read and write from it.
@@ -213,6 +215,8 @@ func (c *Command) initCompleteCmd(args []string) {
 				// 2- Even without completions, we need to print the directive
 			}
 
+			saveToCache(args, completions, directive)
+
 			noDescriptions := cmd.CalledAs() == ShellCompNoDescRequestCmd
 			if !noDescriptions {
 				if doDescriptions, err := strconv.ParseBool(getEnvConfig(cmd, configEnvVarSuffixDescriptions)); err == nil {
@@ -270,6 +274,73 @@ func (c *Command) initCompleteCmd(args []string) {
 	}
 }
 
+func saveToCache(args, completions []string, directive ShellCompDirective) {
+	// Save the completions to the cache
+	var output strings.Builder
+
+	for _, arg := range args {
+		output.WriteString(arg)
+		output.WriteByte(' ')
+	}
+	output.WriteByte('\n')
+
+	for _, completion := range completions {
+		output.WriteString(completion)
+		output.WriteByte('\n')
+	}
+	output.WriteString(fmt.Sprintf(":%d\n", directive))
+
+	err := os.WriteFile(shellCompCacheFile, []byte(output.String()), 0600)
+	if err != nil {
+		// Remove the cache if there is an error, to avoid stale data
+		_ = os.Remove(shellCompCacheFile)
+	}
+}
+
+func arraysEqual(a, b []string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
+
+func checkCache(args []string) ([]string, ShellCompDirective) {
+	// We have to check that that parent pid (the calling shell)
+	// is the same as the one that created the cache.
+	// This is to make sure we have the same environment, as
+	// different environment variables can cause different completions.
+
+	content, err := os.ReadFile(shellCompCacheFile)
+	if err != nil {
+		return nil, ShellCompDirectiveDefault
+	}
+
+	lines := strings.Split(strings.Trim(string(content), "\n"), "\n")
+	if len(lines) == 0 {
+		return nil, ShellCompDirectiveDefault
+	}
+
+	cachedArgs := strings.Split(strings.TrimSpace(lines[0]), " ")
+	if !arraysEqual(args, cachedArgs) {
+		return nil, ShellCompDirectiveDefault
+	}
+
+	lastLine := lines[len(lines)-1]
+	lines = lines[1 : len(lines)-1]
+
+	directive := ShellCompDirectiveError
+	marker, err := strconv.Atoi(lastLine[1:])
+	if err == nil {
+		directive = ShellCompDirective(marker)
+	}
+	return lines, directive
+}
+
 func (c *Command) getCompletions(args []string) (*Command, []string, ShellCompDirective, error) {
 	// The last argument, which is not completely typed by the user,
 	// should not be part of the list of arguments
@@ -301,6 +372,13 @@ func (c *Command) getCompletions(args []string) (*Command, []string, ShellCompDi
 		return c, []string{}, ShellCompDirectiveDefault, fmt.Errorf("unable to find a command for arguments: %v", trimmedArgs)
 	}
 	finalCmd.ctx = c.ctx
+
+	// Check if we have completions cached based on the args.
+	// We could technically do this at the very top of this function but we
+	// need to return the finalCmd also, so
+	if cachedCompletions, cachedDirective := checkCache(args); cachedCompletions != nil {
+		return finalCmd, cachedCompletions, cachedDirective, nil
+	}
 
 	// These flags are normally added when `execute()` is called on `finalCmd`,
 	// however, when doing completion, we don't call `finalCmd.execute()`.
