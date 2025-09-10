@@ -66,20 +66,23 @@ function __%[1]s_handle_activeHelp {
         # Add a separator between active help and completions only if there are completions
         if ($Values.Count -gt 0) {
             Write-Host "---"
+        } else {
+            # Only reprint the prompt and command line when there are no completions
+            # When there are completions, let PowerShell handle the display
+            
+            # Try to restore the prompt and command line
+            # Get the current prompt by calling the prompt function
+            try {
+                $currentPrompt = & prompt
+                Write-Host -NoNewline $currentPrompt
+            } catch {
+                # Fallback to a simple prompt if the prompt function fails
+                Write-Host -NoNewline "PS $($PWD.Path)> "
+            }
+            
+            # Reprint the command line
+            Write-Host -NoNewline $CommandLine
         }
-        
-        # Try to restore the prompt and command line
-        # Get the current prompt by calling the prompt function
-        try {
-            $currentPrompt = & prompt
-            Write-Host -NoNewline $currentPrompt
-        } catch {
-            # Fallback to a simple prompt if the prompt function fails
-            Write-Host -NoNewline "PS $($PWD.Path)> "
-        }
-        
-        # Reprint the command line
-        Write-Host -NoNewline $CommandLine
     }
 }
 
