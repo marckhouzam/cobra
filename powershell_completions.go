@@ -65,7 +65,7 @@ function __%[1]s_handle_activeHelp {
         
         # Add a separator between active help and completions only if there are completions
         if ($Values.Count -gt 0) {
-            Write-Host "---"
+            Write-Host -NoNewline "---"
         } else {
             # Only reprint the prompt and command line when there are no completions
             # When there are completions, let PowerShell handle the display
@@ -80,8 +80,8 @@ function __%[1]s_handle_activeHelp {
                 Write-Host -NoNewline "PS $($PWD.Path)> "
             }
             
-            # Reprint the command line
-            Write-Host -NoNewline $CommandLine
+            # Reprint the command line with a space after it
+            Write-Host -NoNewline "$CommandLine "
         }
     }
 }
