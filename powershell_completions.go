@@ -121,9 +121,7 @@ filter __%[1]s_escapeStringWithSpecialChars {
     }
 
     __%[1]s_debug "Calling $RequestComp"
-    # First disable ActiveHelp which is not supported for Powershell
-    ${env:%[10]s}=0
-
+    
     #call the command store the output in $out and redirect stderr and stdout to null
     # $Out is an array contains each line per element
     Invoke-Expression -OutVariable out "$RequestComp" 2>&1 | Out-Null
@@ -139,6 +137,25 @@ filter __%[1]s_escapeStringWithSpecialChars {
     # remove directive (last element) from out
     $Out = $Out | Where-Object { $_ -ne $Out[-1] }
     __%[1]s_debug "The completions are: $Out"
+
+    # Separate activeHelp from normal completions
+    $ActiveHelp = @()
+    $CompletionsOnly = @()
+    $ActiveHelpMarker = "%[10]s"
+
+    $Out | ForEach-Object {
+        if ($_ -and $_.StartsWith($ActiveHelpMarker)) {
+            $helpText = $_.Substring($ActiveHelpMarker.Length)
+            if ($helpText) {
+                $ActiveHelp += $helpText
+                __%[1]s_debug "ActiveHelp found: $helpText"
+            }
+        } elseif ($_) {
+            $CompletionsOnly += $_
+        }
+    }
+    $Out = $CompletionsOnly
+    __%[1]s_debug "ActiveHelp messages: $($ActiveHelp.Count)"
 
     if (($Directive -band $ShellCompDirectiveError) -ne 0 ) {
         # Error code.  No completion.
@@ -216,6 +233,31 @@ filter __%[1]s_escapeStringWithSpecialChars {
     # Get the current mode
     $Mode = (Get-PSReadLineKeyHandler | Where-Object {$_.Key -eq "Tab" }).Function
     __%[1]s_debug "Mode: $Mode"
+
+    # Display ActiveHelp if available
+    if ($ActiveHelp.Count -gt 0) {
+        $ActiveHelp | ForEach-Object {
+            $activeHelpText = $_
+            __%[1]s_debug "Displaying ActiveHelp: $activeHelpText"
+            
+            # Display the active help text
+            if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage") {
+                [System.Management.Automation.CompletionResult]::new("", $activeHelpText, 'Text', $activeHelpText)
+            } else {
+                # In constrained mode, just return the help text with a prefix
+                "# $activeHelpText"
+            }
+        }
+
+        # Add a separator if there are both active help and regular completions
+        if ($Values.Count -gt 0) {
+            if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage") {
+                [System.Management.Automation.CompletionResult]::new("", "---", 'Text', "Available completions:")
+            } else {
+                "# ---"
+            }
+        }
+    }
 
     $Values | ForEach-Object {
 
@@ -307,7 +349,7 @@ filter __%[1]s_escapeStringWithSpecialChars {
 Register-ArgumentCompleter -CommandName '%[1]s' -ScriptBlock ${__%[2]sCompleterBlock}
 `, name, nameForVar, compCmd,
 		ShellCompDirectiveError, ShellCompDirectiveNoSpace, ShellCompDirectiveNoFileComp,
-		ShellCompDirectiveFilterFileExt, ShellCompDirectiveFilterDirs, ShellCompDirectiveKeepOrder, activeHelpEnvVar(name)))
+		ShellCompDirectiveFilterFileExt, ShellCompDirectiveFilterDirs, ShellCompDirectiveKeepOrder, activeHelpMarker))
 }
 
 func (c *Command) genPowerShellCompletion(w io.Writer, includeDesc bool) error {
