@@ -93,8 +93,8 @@ function __%[1]s_handle_activeHelp {
                 Write-Host -NoNewline "PS $($PWD.Path)> "
             }
             
-            # Reprint the command line with a space after it
-            Write-Host -NoNewline "$CommandLine "
+            # Reprint the command line without adding extra space
+            Write-Host -NoNewline $CommandLine
         }
     }
 }
