@@ -53,17 +53,18 @@ function __%[1]s_handle_activeHelp {
     # Display ActiveHelp if available, but only if there are multiple completions
     # When there's only one completion it will be displayed by default
     if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+        # Print active help directly to the console, not as completion results
         $ActiveHelp | ForEach-Object {
             $activeHelpText = $_
             __%[1]s_debug "Displaying ActiveHelp: $activeHelpText"
-
-            # Display the active help text
-            "$activeHelpText"
+            
+            # Write directly to host so it appears as informational text
+            Write-Host $activeHelpText
         }
 
         # Add a separator if there are both active help and regular completions
         if ($Values.Count -gt 0) {
-            "---"
+            Write-Host "---"
         }
     }
 }
