@@ -55,10 +55,14 @@ function __%[1]s_handle_activeHelp {
     
     if ($ActiveHelp.Count -gt 0) {
         if ($Mode -eq "MenuComplete") {
-            # In MenuComplete mode, only show active help when there are no completions
+            # Skip active help in MenuComplete mode to avoid cursor positioning issues
+            # MenuComplete provides a good interface already
+            $shouldShowActiveHelp = $false
+        } elseif ($Mode -eq "TabCompleteNext") {
+            # In TabCompleteNext mode, only show active help when there are no completions
             $shouldShowActiveHelp = ($Values.Count -eq 0)
         } else {
-            # In other modes (Complete, TabCompleteNext), show active help when not exactly 1 completion
+            # In Complete mode, show active help when not exactly 1 completion
             $shouldShowActiveHelp = ($Values.Count -ne 1)
         }
     }
@@ -77,10 +81,8 @@ function __%[1]s_handle_activeHelp {
         # Add a separator between active help and completions only if there are completions
         if ($Values.Count -gt 0) {
             Write-Host -NoNewline "---"
-        } elseif ($Mode -ne "MenuComplete") {
-            # Only reprint the prompt and command line when there are no completions
-            # Skip this for MenuComplete mode to avoid cursor positioning issues
-            
+        } else {
+            # When there are no completions, reprint the prompt and command line
             # Try to restore the prompt and command line
             # Get the current prompt by calling the prompt function
             try {
