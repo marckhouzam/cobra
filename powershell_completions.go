@@ -52,23 +52,29 @@ function __%[1]s_handle_activeHelp {
 
     # Display ActiveHelp if available, but only if there are multiple completions
     # When there's only one completion it will be displayed by default
-    # Note: PowerShell doesn't have bash-style "second TAB" detection, so we show
-    # active help immediately when there are multiple completions
     if ($ActiveHelp.Count -gt 0 -and $Values.Count -gt 1) {
-        # Start with a newline to separate from any previous output
-        Write-Host ""
-        
-        # Print active help directly to the console, not as completion results
+        # Print active help messages
         $ActiveHelp | ForEach-Object {
             $activeHelpText = $_
             __%[1]s_debug "Displaying ActiveHelp: $activeHelpText"
-            
-            # Write directly to host so it appears as informational text
             Write-Host $activeHelpText
         }
-
+        
         # Add a separator between active help and completions
         Write-Host "---"
+        
+        # Try to restore the prompt and command line
+        # Get the current prompt by calling the prompt function
+        try {
+            $currentPrompt = & prompt
+            Write-Host -NoNewline $currentPrompt
+        } catch {
+            # Fallback to a simple prompt if the prompt function fails
+            Write-Host -NoNewline "PS $($PWD.Path)> "
+        }
+        
+        # Reprint the command line
+        Write-Host -NoNewline $CommandLine
     }
 }
 
@@ -345,10 +351,7 @@ function __%[1]s_handle_activeHelp {
 
     }
     
-    # Reprint the command line after displaying active help and completions
-    if ($ActiveHelp.Count -gt 0 -and $Values.Count -gt 1) {
-        Write-Host -NoNewline $Command
-    }
+    # Command line reprinting is handled within the __%[1]s_handle_activeHelp function
 }
 
 Register-ArgumentCompleter -CommandName '%[1]s' -ScriptBlock ${__%[2]sCompleterBlock}
