@@ -48,11 +48,22 @@ filter __%[1]s_escapeStringWithSpecialChars {
 }
 
 function __%[1]s_handle_activeHelp {
-    param($ActiveHelp, $Values, $CommandLine)
+    param($ActiveHelp, $Values, $CommandLine, $Mode)
 
-    # Display ActiveHelp if available when there are multiple completions or no completions
-    # When there's only one completion it will be displayed by default, so skip active help
-    if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+    # Determine when to show active help based on completion mode
+    $shouldShowActiveHelp = $false
+    
+    if ($ActiveHelp.Count -gt 0) {
+        if ($Mode -eq "MenuComplete") {
+            # In MenuComplete mode, only show active help when there are no completions
+            $shouldShowActiveHelp = ($Values.Count -eq 0)
+        } else {
+            # In other modes (Complete, TabCompleteNext), show active help when not exactly 1 completion
+            $shouldShowActiveHelp = ($Values.Count -ne 1)
+        }
+    }
+
+    if ($shouldShowActiveHelp) {
         # Start with a newline to separate from the command line
         Write-Host ""
         
@@ -66,9 +77,9 @@ function __%[1]s_handle_activeHelp {
         # Add a separator between active help and completions only if there are completions
         if ($Values.Count -gt 0) {
             Write-Host -NoNewline "---"
-        } else {
+        } elseif ($Mode -ne "MenuComplete") {
             # Only reprint the prompt and command line when there are no completions
-            # When there are completions, let PowerShell handle the display
+            # Skip this for MenuComplete mode to avoid cursor positioning issues
             
             # Try to restore the prompt and command line
             # Get the current prompt by calling the prompt function
@@ -258,7 +269,7 @@ function __%[1]s_handle_activeHelp {
     __%[1]s_debug "Mode: $Mode"
 
     # Handle ActiveHelp display
-    __%[1]s_handle_activeHelp $ActiveHelp $Values $Command
+    __%[1]s_handle_activeHelp $ActiveHelp $Values $Command $Mode
 
     if (($Directive -band $ShellCompDirectiveNoFileComp) -ne 0 ) {
         __%[1]s_debug "ShellCompDirectiveNoFileComp is called"
