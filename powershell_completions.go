@@ -47,6 +47,27 @@ filter __%[1]s_escapeStringWithSpecialChars {
 `+"    $_ -replace '\\s|#|@|\\$|;|,|''|\\{|\\}|\\(|\\)|\"|`|\\||<|>|&','`$&'"+`
 }
 
+function __%[1]s_handle_activeHelp {
+    param($ActiveHelp, $Values)
+
+    # Display ActiveHelp if available, but only if there are multiple completions
+    # When there's only one completion it will be displayed by default
+    if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+        $ActiveHelp | ForEach-Object {
+            $activeHelpText = $_
+            __%[1]s_debug "Displaying ActiveHelp: $activeHelpText"
+
+            # Display the active help text
+            "$activeHelpText"
+        }
+
+        # Add a separator if there are both active help and regular completions
+        if ($Values.Count -gt 0) {
+            "---"
+        }
+    }
+}
+
 [scriptblock]${__%[2]sCompleterBlock} = {
     param(
             $WordToComplete,
@@ -218,31 +239,8 @@ filter __%[1]s_escapeStringWithSpecialChars {
     $Mode = (Get-PSReadLineKeyHandler | Where-Object {$_.Key -eq "Tab" }).Function
     __%[1]s_debug "Mode: $Mode"
 
-    # Display ActiveHelp if available, but only if there are multiple completions
-    # When there's only one completion it will be displayed by default
-    if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
-        $ActiveHelp | ForEach-Object {
-            $activeHelpText = $_
-            __%[1]s_debug "Displaying ActiveHelp: $activeHelpText"
-            
-            # Display the active help text
-            if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage") {
-                [System.Management.Automation.CompletionResult]::new("", $activeHelpText, 'Text', $activeHelpText)
-            } else {
-                # In constrained mode, just return the help text with a prefix
-                "$activeHelpText"
-            }
-        }
-
-        # Add a separator if there are both active help and regular completions
-        if ($Values.Count -gt 0) {
-            if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage") {
-                [System.Management.Automation.CompletionResult]::new("", "---", 'Text', "Available completions:")
-            } else {
-                "---"
-            }
-        }
-    }
+    # Handle ActiveHelp display
+    __%[1]s_handle_activeHelp $ActiveHelp $Values
 
     if (($Directive -band $ShellCompDirectiveNoFileComp) -ne 0 ) {
         __%[1]s_debug "ShellCompDirectiveNoFileComp is called"
