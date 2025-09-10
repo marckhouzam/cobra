@@ -50,9 +50,12 @@ filter __%[1]s_escapeStringWithSpecialChars {
 function __%[1]s_handle_activeHelp {
     param($ActiveHelp, $Values, $CommandLine)
 
-    # Display ActiveHelp if available, but only if there are multiple completions
-    # When there's only one completion it will be displayed by default
-    if ($ActiveHelp.Count -gt 0 -and $Values.Count -gt 1) {
+    # Display ActiveHelp if available when there are multiple completions or no completions
+    # When there's only one completion it will be displayed by default, so skip active help
+    if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+        # Start with a newline to separate from the command line
+        Write-Host ""
+        
         # Print active help messages
         $ActiveHelp | ForEach-Object {
             $activeHelpText = $_
@@ -60,8 +63,10 @@ function __%[1]s_handle_activeHelp {
             Write-Host $activeHelpText
         }
         
-        # Add a separator between active help and completions
-        Write-Host "---"
+        # Add a separator between active help and completions only if there are completions
+        if ($Values.Count -gt 0) {
+            Write-Host "---"
+        }
         
         # Try to restore the prompt and command line
         # Get the current prompt by calling the prompt function
