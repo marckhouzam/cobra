@@ -48,11 +48,14 @@ filter __%[1]s_escapeStringWithSpecialChars {
 }
 
 function __%[1]s_handle_activeHelp {
-    param($ActiveHelp, $Values)
+    param($ActiveHelp, $Values, $CommandLine)
 
     # Display ActiveHelp if available, but only if there are multiple completions
     # When there's only one completion it will be displayed by default
     if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+        # Start with a newline to separate from any previous output
+        Write-Host ""
+        
         # Print active help directly to the console, not as completion results
         $ActiveHelp | ForEach-Object {
             $activeHelpText = $_
@@ -66,6 +69,7 @@ function __%[1]s_handle_activeHelp {
         if ($Values.Count -gt 0) {
             Write-Host "---"
         }
+        
     }
 }
 
@@ -241,7 +245,7 @@ function __%[1]s_handle_activeHelp {
     __%[1]s_debug "Mode: $Mode"
 
     # Handle ActiveHelp display
-    __%[1]s_handle_activeHelp $ActiveHelp $Values
+    __%[1]s_handle_activeHelp $ActiveHelp $Values $Command
 
     if (($Directive -band $ShellCompDirectiveNoFileComp) -ne 0 ) {
         __%[1]s_debug "ShellCompDirectiveNoFileComp is called"
@@ -340,6 +344,11 @@ function __%[1]s_handle_activeHelp {
             }
         }
 
+    }
+    
+    # Reprint the command line after displaying active help and completions
+    if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+        Write-Host -NoNewline $Command
     }
 }
 
