@@ -138,11 +138,16 @@ filter __%[1]s_escapeStringWithSpecialChars {
     $Out = $Out | Where-Object { $_ -ne $Out[-1] }
     __%[1]s_debug "The completions are: $Out"
 
+    if (($Directive -band $ShellCompDirectiveError) -ne 0 ) {
+        # Error code.  No completion.
+        __%[1]s_debug "Received error from custom completion go code"
+        return
+    }
+
     # Separate activeHelp from normal completions
     $ActiveHelp = @()
     $CompletionsOnly = @()
     $ActiveHelpMarker = "%[10]s"
-
     $Out | ForEach-Object {
         if ($_ -and $_.StartsWith($ActiveHelpMarker)) {
             $helpText = $_.Substring($ActiveHelpMarker.Length)
@@ -155,13 +160,6 @@ filter __%[1]s_escapeStringWithSpecialChars {
         }
     }
     $Out = $CompletionsOnly
-    __%[1]s_debug "ActiveHelp messages: $($ActiveHelp.Count)"
-
-    if (($Directive -band $ShellCompDirectiveError) -ne 0 ) {
-        # Error code.  No completion.
-        __%[1]s_debug "Received error from custom completion go code"
-        return
-    }
 
     $Longest = 0
     [Array]$Values = $Out | ForEach-Object {
@@ -184,7 +182,6 @@ filter __%[1]s_escapeStringWithSpecialChars {
             Description = "$Description"
         }
     }
-
 
     $Space = " "
     if (($Directive -band $ShellCompDirectiveNoSpace) -ne 0 ) {
@@ -217,6 +214,36 @@ filter __%[1]s_escapeStringWithSpecialChars {
         $Values = $Values | Sort-Object -Property Name
     }
 
+    # Get the current mode
+    $Mode = (Get-PSReadLineKeyHandler | Where-Object {$_.Key -eq "Tab" }).Function
+    __%[1]s_debug "Mode: $Mode"
+
+    # Display ActiveHelp if available, but only if there are multiple completions
+    # When there's only one completion it will be displayed by default
+    if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+        $ActiveHelp | ForEach-Object {
+            $activeHelpText = $_
+            __%[1]s_debug "Displaying ActiveHelp: $activeHelpText"
+            
+            # Display the active help text
+            if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage") {
+                [System.Management.Automation.CompletionResult]::new("", $activeHelpText, 'Text', $activeHelpText)
+            } else {
+                # In constrained mode, just return the help text with a prefix
+                "$activeHelpText"
+            }
+        }
+
+        # Add a separator if there are both active help and regular completions
+        if ($Values.Count -gt 0) {
+            if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage") {
+                [System.Management.Automation.CompletionResult]::new("", "---", 'Text', "Available completions:")
+            } else {
+                "---"
+            }
+        }
+    }
+
     if (($Directive -band $ShellCompDirectiveNoFileComp) -ne 0 ) {
         __%[1]s_debug "ShellCompDirectiveNoFileComp is called"
 
@@ -227,35 +254,6 @@ filter __%[1]s_escapeStringWithSpecialChars {
             # it does not accept an empty string as argument.
             ""
             return
-        }
-    }
-
-    # Get the current mode
-    $Mode = (Get-PSReadLineKeyHandler | Where-Object {$_.Key -eq "Tab" }).Function
-    __%[1]s_debug "Mode: $Mode"
-
-    # Display ActiveHelp if available
-    if ($ActiveHelp.Count -gt 0) {
-        $ActiveHelp | ForEach-Object {
-            $activeHelpText = $_
-            __%[1]s_debug "Displaying ActiveHelp: $activeHelpText"
-            
-            # Display the active help text
-            if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage") {
-                [System.Management.Automation.CompletionResult]::new("", $activeHelpText, 'Text', $activeHelpText)
-            } else {
-                # In constrained mode, just return the help text with a prefix
-                "# $activeHelpText"
-            }
-        }
-
-        # Add a separator if there are both active help and regular completions
-        if ($Values.Count -gt 0) {
-            if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage") {
-                [System.Management.Automation.CompletionResult]::new("", "---", 'Text', "Available completions:")
-            } else {
-                "# ---"
-            }
         }
     }
 
