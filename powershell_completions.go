@@ -52,7 +52,9 @@ function __%[1]s_handle_activeHelp {
 
     # Display ActiveHelp if available, but only if there are multiple completions
     # When there's only one completion it will be displayed by default
-    if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+    # Note: PowerShell doesn't have bash-style "second TAB" detection, so we show
+    # active help immediately when there are multiple completions
+    if ($ActiveHelp.Count -gt 0 -and $Values.Count -gt 1) {
         # Start with a newline to separate from any previous output
         Write-Host ""
         
@@ -65,11 +67,8 @@ function __%[1]s_handle_activeHelp {
             Write-Host $activeHelpText
         }
 
-        # Add a separator if there are both active help and regular completions
-        if ($Values.Count -gt 0) {
-            Write-Host "---"
-        }
-        
+        # Add a separator between active help and completions
+        Write-Host "---"
     }
 }
 
@@ -347,7 +346,7 @@ function __%[1]s_handle_activeHelp {
     }
     
     # Reprint the command line after displaying active help and completions
-    if ($ActiveHelp.Count -gt 0 -and $Values.Count -ne 1) {
+    if ($ActiveHelp.Count -gt 0 -and $Values.Count -gt 1) {
         Write-Host -NoNewline $Command
     }
 }
