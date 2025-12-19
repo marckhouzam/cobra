@@ -16,7 +16,7 @@ package cobra
 
 import (
 	"crypto/sha256"
-	"encoding/gob"
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -360,7 +360,7 @@ func loadCompletionCache() (*completionCacheEntry, error) {
 	defer file.Close()
 
 	var entry completionCacheEntry
-	decoder := gob.NewDecoder(file)
+	decoder := json.NewDecoder(file)
 	if err := decoder.Decode(&entry); err != nil {
 		return nil, err
 	}
@@ -381,7 +381,7 @@ func saveCompletionCache(entry *completionCacheEntry) error {
 	}
 	defer file.Close()
 
-	encoder := gob.NewEncoder(file)
+	encoder := json.NewEncoder(file)
 	return encoder.Encode(entry)
 }
 
