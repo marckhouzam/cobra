@@ -440,6 +440,10 @@ func checkCompletionCache(trimmedArgs []string) (*completionCacheEntry, bool) {
 		return nil, false
 	}
 
+	// Cache hit - update timestamp to extend cache lifetime
+	cache.Timestamp = time.Now()
+	_ = saveCompletionCache(cache)
+
 	return cache, true
 }
 
