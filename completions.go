@@ -108,8 +108,10 @@ const (
 )
 
 const (
-	// completionCacheTimeout is the duration for which cached completions are considered valid
-	completionCacheTimeout = 1 * time.Second
+	// defaultCompletionCacheTimeout is the default duration for which cached completions are considered valid
+	defaultCompletionCacheTimeout = 1 * time.Second
+	// completionCacheTimeoutEnvVar is the environment variable that can be used to override the cache timeout
+	completionCacheTimeoutEnvVar = "COBRA_COMPLETION_CACHE_TIMEOUT"
 )
 
 // completionCacheEntry represents a cached completion result
@@ -398,6 +400,29 @@ func argsMatchCache(args []string, cachedArgs []string) bool {
 	return true
 }
 
+// getCompletionCacheTimeout returns the cache timeout duration.
+// It checks the COBRA_COMPLETION_CACHE_TIMEOUT environment variable first,
+// and falls back to the default timeout if not set or invalid.
+func getCompletionCacheTimeout() time.Duration {
+	envValue := os.Getenv(completionCacheTimeoutEnvVar)
+	if envValue == "" {
+		return defaultCompletionCacheTimeout
+	}
+
+	duration, err := time.ParseDuration(envValue)
+	if err != nil {
+		// If parsing fails, return the default timeout
+		return defaultCompletionCacheTimeout
+	}
+
+	// Ensure the duration is positive
+	if duration <= 0 {
+		return defaultCompletionCacheTimeout
+	}
+
+	return duration
+}
+
 // checkCompletionCache checks if we have a valid cached result for the given arguments
 func checkCompletionCache(trimmedArgs []string) (*completionCacheEntry, bool) {
 	cache, err := loadCompletionCache()
@@ -406,7 +431,7 @@ func checkCompletionCache(trimmedArgs []string) (*completionCacheEntry, bool) {
 	}
 
 	// Check if cache is too old
-	if time.Since(cache.Timestamp) > completionCacheTimeout {
+	if time.Since(cache.Timestamp) > getCompletionCacheTimeout() {
 		return nil, false
 	}
 
