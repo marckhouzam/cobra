@@ -15,12 +15,16 @@
 package cobra
 
 import (
+	"crypto/sha256"
+	"encoding/gob"
 	"fmt"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/spf13/pflag"
 )
@@ -102,6 +106,19 @@ const (
 	compCmdNoDescFlagDesc    = "disable completion descriptions"
 	compCmdNoDescFlagDefault = false
 )
+
+const (
+	// completionCacheTimeout is the duration for which cached completions are considered valid
+	completionCacheTimeout = 1 * time.Second
+)
+
+// completionCacheEntry represents a cached completion result
+type completionCacheEntry struct {
+	Timestamp   time.Time
+	Args        []string // The arguments used (excluding toComplete)
+	Completions []Completion
+	Directive   ShellCompDirective
+}
 
 // CompletionOptions are the options to control shell completion
 type CompletionOptions struct {
@@ -313,11 +330,105 @@ type SliceValue interface {
 	GetSlice() []string
 }
 
+// getCompletionCachePath returns the path to the completion cache file
+func getCompletionCachePath() (string, error) {
+	tmpDir := os.TempDir()
+	// Use a hash of the executable path to create a unique cache file per program
+	execPath, err := os.Executable()
+	if err != nil {
+		return "", err
+	}
+	hash := sha256.Sum256([]byte(execPath))
+	cacheFileName := fmt.Sprintf(".cobra_completion_cache_%x", hash[:8])
+	return filepath.Join(tmpDir, cacheFileName), nil
+}
+
+// loadCompletionCache attempts to load the completion cache from disk
+func loadCompletionCache() (*completionCacheEntry, error) {
+	cachePath, err := getCompletionCachePath()
+	if err != nil {
+		return nil, err
+	}
+
+	file, err := os.Open(cachePath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, nil // No cache file exists yet
+		}
+		return nil, err
+	}
+	defer file.Close()
+
+	var entry completionCacheEntry
+	decoder := gob.NewDecoder(file)
+	if err := decoder.Decode(&entry); err != nil {
+		return nil, err
+	}
+
+	return &entry, nil
+}
+
+// saveCompletionCache saves the completion cache to disk
+func saveCompletionCache(entry *completionCacheEntry) error {
+	cachePath, err := getCompletionCachePath()
+	if err != nil {
+		return err
+	}
+
+	file, err := os.Create(cachePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := gob.NewEncoder(file)
+	return encoder.Encode(entry)
+}
+
+// argsMatchCache checks if the given args (excluding toComplete) match the cached args
+func argsMatchCache(args []string, cachedArgs []string) bool {
+	if len(args) != len(cachedArgs) {
+		return false
+	}
+	for i := range args {
+		if args[i] != cachedArgs[i] {
+			return false
+		}
+	}
+	return true
+}
+
+// checkCompletionCache checks if we have a valid cached result for the given arguments
+func checkCompletionCache(trimmedArgs []string) (*completionCacheEntry, bool) {
+	cache, err := loadCompletionCache()
+	if err != nil || cache == nil {
+		return nil, false
+	}
+
+	// Check if cache is too old
+	if time.Since(cache.Timestamp) > completionCacheTimeout {
+		return nil, false
+	}
+
+	// Check if args match (excluding toComplete)
+	if !argsMatchCache(trimmedArgs, cache.Args) {
+		return nil, false
+	}
+
+	return cache, true
+}
+
 func (c *Command) getCompletions(args []string) (*Command, []Completion, ShellCompDirective, error) {
 	// The last argument, which is not completely typed by the user,
 	// should not be part of the list of arguments
 	toComplete := args[len(args)-1]
 	trimmedArgs := args[:len(args)-1]
+
+	// Check if we have a valid cached result
+	if cache, hit := checkCompletionCache(trimmedArgs); hit {
+		// Return cached completions
+		return c, cache.Completions, cache.Directive, nil
+	}
 
 	var finalCmd *Command
 	var finalArgs []string
@@ -577,6 +688,16 @@ func (c *Command) getCompletions(args []string) (*Command, []Completion, ShellCo
 		comps, directive = completionFn(finalCmd, finalArgs, toComplete)
 		completions = append(completions, comps...)
 	}
+
+	// Save the computed completions to cache
+	cacheEntry := &completionCacheEntry{
+		Timestamp:   time.Now(),
+		Args:        trimmedArgs,
+		Completions: completions,
+		Directive:   directive,
+	}
+	// We ignore any errors when saving the cache - caching is best-effort
+	_ = saveCompletionCache(cacheEntry)
 
 	return finalCmd, completions, directive, nil
 }
