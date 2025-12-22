@@ -115,6 +115,39 @@ To tell Cobra to completely disable descriptions for completions:
 rootCmd.CompletionOptions.DisableDescriptions = true
 ```
 
+## Completion caching
+
+Cobra automatically caches completion results to improve performance.  Programs using Cobra need not do anything to benefit from this feature. This caching has particular value for custom completions that involve expensive operations like network requests or complex computations (defined in a `ValidArgsFunction` or `RegisterFlagCompletionFunc()`). The cache stores the completion results for a short period and reuses them when the same completion request is made again.
+
+Unlike completion is cache is 
+
+### How the cache works
+
+When then end-user requests shell completion choices, Cobra will automatically handle all aspects of completion caching.  For information, here is what Cobra does:
+
+1. Check if a very recent cached result exists for the current arguments
+2. If a valid cache entry is found (not expired and matching the same arguments), return the cached completions
+3. Otherwise, execute your completion function and cache the result for future use
+
+The cache is stored in a temporary directory (typically `/tmp` on Unix-like systems) with a unique filename based on your program's path. Each program maintains its own separate cache file.
+
+### Configuring cache timeout
+
+By default, cached completions are considered valid for **1 second**. You can customize this timeout using the `COBRA_COMPLETION_CACHE_TIMEOUT` environment variable.
+
+The timeout value should be specified as a duration string that Go's `time.ParseDuration()` can understand:
+
+```bash
+# Set cache timeout to 5 seconds
+export COBRA_COMPLETION_CACHE_TIMEOUT=5s
+
+# Set cache timeout to 500 milliseconds
+export COBRA_COMPLETION_CACHE_TIMEOUT=500ms
+```
+
+Setting the environment variable to 0 will completely turn off the completion caching feature.
+If the environment variable is not set, invalid, or negative, Cobra uses the default timeout of 1 second.
+
 # Customizing completions
 
 The generated completion scripts will automatically handle completing commands and flags.  However, you can make your completions much more powerful by providing information to complete your program's nouns and flag values.
